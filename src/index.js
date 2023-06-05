@@ -7,6 +7,10 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Menu from "./pages/Menu";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import NewProduct from "./pages/NewProduct";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +32,22 @@ const router = createBrowserRouter([
             {
                 path: "menu",
                 element: <Menu />,
+            },
+            {
+                path: "cart",
+                element: <Cart />,
+            },
+            {
+                path: "login",
+                element: <Login />,
+            },
+            {
+                path: "signup",
+                element: <Signup />,
+            },
+            {
+                path: "newproduct",
+                element: <NewProduct />,
             },
         ],
     },
