@@ -14,7 +14,7 @@ function Login() {
         const { email, password } = data;
         if (email && password) {
             setCheckReqField(false);
-            console.log(data);
+            // console.log(data);
             alert("success");
         } else {
             setCheckReqField(true);

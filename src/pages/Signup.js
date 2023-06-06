@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link, useNavigate } from "react-router-dom";
+import { ImageToBase64 } from "../utilities/ImageToBase64.js";
 
 function Signup() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ function Signup() {
         email: "",
         password: "",
         confirmPassword: "",
+        image: "",
     });
     const [checkRequiredField, setCheckReqField] = useState(false);
     const [passwordMatch, setPassswordMatch] = useState(false);
@@ -20,7 +22,7 @@ function Signup() {
         if (firstName && email && password && confirmPassword) {
             setCheckReqField(false);
             if (password === confirmPassword) {
-                console.log(data);
+                console.log(data.image);
                 alert("successfull");
                 navigate("/login");
             } else {
@@ -39,6 +41,16 @@ function Signup() {
             return {
                 ...prev,
                 [name]: value,
+            };
+        });
+    };
+
+    const handleFileInput = async (e) => {
+        const val = await ImageToBase64(e.target.files[0]);
+        setData((prev) => {
+            return {
+                ...prev,
+                image: val,
             };
         });
     };
@@ -93,6 +105,7 @@ function Signup() {
                         value={data.email}
                         onChange={handleChange}
                     />
+
                     <label htmlFor="email" className="pl-2 font-bold">
                         Password<span className="text-red-700">*</span>
                     </label>
@@ -114,9 +127,21 @@ function Signup() {
                         id="confirmPassword"
                         name="confirmPassword"
                         placeholder="Confirm Password"
-                        className="w-full h-10 bg-zinc-200 rounded-sm px-2 shadow-sm shadow-zinc-500 mb-5"
+                        className="w-full h-10 bg-zinc-200 rounded-sm px-2 shadow-sm shadow-zinc-500 mb-2"
                         value={data.confirmPassword}
                         onChange={handleChange}
+                    />
+                    <label htmlFor="image" className="pl-2 font-bold">
+                        Upload Image
+                    </label>
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        className="w-full h-10 rounded-sm px-1 mb-2 mt-0.5"
+                        accept="image/*"
+                        // value={data.image}
+                        onChange={handleFileInput}
                     />
                     {checkRequiredField && (
                         <p className="pb-2 flex items-center justify-center gap-1 text-xs">
