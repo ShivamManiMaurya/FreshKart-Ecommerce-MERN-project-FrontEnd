@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { ImageToBase64 } from "../utilities/ImageToBase64.js";
+import axios from "axios";
+import { fetchData } from "../api";
 
 function Signup() {
     const navigate = useNavigate();
@@ -16,15 +18,25 @@ function Signup() {
     const [checkRequiredField, setCheckReqField] = useState(false);
     const [passwordMatch, setPassswordMatch] = useState(false);
 
-    const handleSubmit = (e) => {
+    // console.log(process.env.REACT_APP_SERVER_DOMAIN);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { firstName, email, password, confirmPassword } = data;
         if (firstName && email && password && confirmPassword) {
             setCheckReqField(false);
             if (password === confirmPassword) {
-                console.log(data.image);
-                alert("successfull");
-                navigate("/login");
+                // const fetchData = await axios.post(
+                //     `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
+                //     data
+                // );
+
+                const dataRes = await fetchData(data);
+                console.log(dataRes);
+
+                // console.log(data.image);
+                // alert("successfull");
+                // navigate("/login");
             } else {
                 setPassswordMatch(true);
             }
