@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { ImageToBase64 } from "../utilities/ImageToBase64.js";
-import axios from "axios";
 import { fetchData } from "../api";
+import toast from "react-hot-toast";
 
 function Signup() {
     const navigate = useNavigate();
@@ -35,7 +35,11 @@ function Signup() {
                 console.log(dataRes);
 
                 // console.log(data.image);
-                // alert("successfull");
+                // alert(dataRes.data.message);
+                toast(dataRes.data.message);
+                if (dataRes.data.alert) {
+                    navigate("/login");
+                }
                 // navigate("/login");
             } else {
                 setPassswordMatch(true);

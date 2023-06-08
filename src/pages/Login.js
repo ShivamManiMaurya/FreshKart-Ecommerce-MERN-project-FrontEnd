@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link } from "react-router-dom";
+import { fetchLoginData } from "../api";
 
 function Login() {
     const [data, setData] = useState({
@@ -9,13 +10,18 @@ function Login() {
     });
     const [checkRequiredField, setCheckReqField] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { email, password } = data;
         if (email && password) {
             setCheckReqField(false);
-            // console.log(data);
-            alert("success");
+            const dataRes = await fetchLoginData(data);
+            console.log("data = ", dataRes);
+
+            if (dataRes.data.alert) {
+                console.log(data);
+                alert("success");
+            }
         } else {
             setCheckReqField(true);
             // alert("Check Required * fields first");

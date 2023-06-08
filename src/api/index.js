@@ -8,3 +8,4 @@ const url = "http://localhost:8080";
 // };
 
 export const fetchData = (data) => axios.post(`${url}/signup`, data);
+export const fetchLoginData = (data) => axios.post(`${url}/login`, data);
