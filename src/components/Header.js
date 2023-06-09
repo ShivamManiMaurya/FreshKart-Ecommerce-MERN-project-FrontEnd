@@ -3,11 +3,14 @@ import logo from "../assets/images/logo/logo.png";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Header() {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showAfterRefresh, setShowAfterRefresh] = useState(false);
     const [cartValue, setCartValue] = useState(0);
+
+    const { image: profileImage } = useSelector((state) => state.user);
 
     const handleUserClick = () => {
         setShowAfterRefresh(true);
@@ -66,8 +69,16 @@ function Header() {
                         onClick={handleUserClick}
                     >
                         <div className="">
-                            <div className="hover:text-red-700 cursor-pointer transition-all">
-                                <FaUser />
+                            <div className="hover:text-red-700 w-10 h-10 cursor-pointer transition-all ">
+                                {profileImage ? (
+                                    <img
+                                        src={profileImage}
+                                        alt="profile"
+                                        className="w-fit h-fit overflow-hidden"
+                                    ></img>
+                                ) : (
+                                    <FaUser />
+                                )}
                             </div>
                             {showUserMenu ? (
                                 <div

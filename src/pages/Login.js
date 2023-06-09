@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchLoginData } from "../api";
+import { addUser } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
 
 function Login() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -16,11 +21,15 @@ function Login() {
         if (email && password) {
             setCheckReqField(false);
             const dataRes = await fetchLoginData(data);
-            console.log("data = ", dataRes);
-
+            console.log("dataRes = ", dataRes);
+            dispatch(addUser(dataRes.data.backendData));
             if (dataRes.data.alert) {
-                console.log(data);
-                alert("success");
+                console.log("data: ", data);
+                toast(
+                    dataRes.data.backendData.firstName +
+                        " is successfully Logedin..."
+                );
+                // navigate("/");
             }
         } else {
             setCheckReqField(true);
