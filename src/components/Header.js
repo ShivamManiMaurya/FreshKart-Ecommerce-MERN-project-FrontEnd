@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo/logo.png";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeUser } from "../redux/userSlice";
+import { toast } from "react-hot-toast";
 
 function Header() {
+    const dispatch = useDispatch();
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showAfterRefresh, setShowAfterRefresh] = useState(false);
     const [cartValue, setCartValue] = useState(0);
@@ -16,6 +19,17 @@ function Header() {
         setShowAfterRefresh(true);
         setShowUserMenu((prev) => !prev);
     };
+
+    const handleLogout = () => {
+        // console.log("before = ", profileImage);
+        dispatch(removeUser());
+        toast("You have been successfully logged out.");
+        // console.log("after = ", profileImage);
+    };
+
+    // useEffect(() => {
+    //     console.log(profileImage);
+    // }, [profileImage]);
 
     return (
         <header className=" fixed shadow-md shadow-zinc-700 w-full h-[70px] bg-black px-4 lg:px-16 z-50">
@@ -74,7 +88,7 @@ function Header() {
                                     <img
                                         src={profileImage}
                                         alt="profile"
-                                        className="w-fit h-fit overflow-hidden"
+                                        className="w-full h-full overflow-hidden"
                                     ></img>
                                 ) : (
                                     <FaUser />
@@ -95,7 +109,13 @@ function Header() {
                                             </Link>
                                         </li>
                                         <li className=" cursor-pointer hover:text-red-700 transition-all">
-                                            <Link to={"login"}>LogIn</Link>
+                                            {profileImage ? (
+                                                <p onClick={handleLogout}>
+                                                    LogOut
+                                                </p>
+                                            ) : (
+                                                <Link to={"login"}>LogIn</Link>
+                                            )}
                                         </li>
                                     </ul>
                                 </div>
@@ -104,7 +124,11 @@ function Header() {
                                     <div className=" bg-black h-[65px] w-[110px] absolute right-0 animate-scaleDown opacity-0 text-left text-base p-2 shadow-zinc-700 shadow-md">
                                         <ul>
                                             <li>New Product</li>
-                                            <li>LogIn</li>
+                                            {profileImage ? (
+                                                <li>LogOut</li>
+                                            ) : (
+                                                <li>LogIn</li>
+                                            )}
                                         </ul>
                                     </div>
                                 )
