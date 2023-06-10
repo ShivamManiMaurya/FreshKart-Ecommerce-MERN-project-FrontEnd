@@ -29,11 +29,13 @@ function Login() {
                     dataRes.data.backendData.firstName +
                         " is successfully Logedin..."
                 );
-                // navigate("/");
+                navigate("/");
+            } else {
+                toast("Your email or password is Wrong...!");
             }
         } else {
             setCheckReqField(true);
-            // alert("Check Required * fields first");
+            toast("Please fill the required fields first...!");
         }
     };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../assets/images/logo/logo.png";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
@@ -13,7 +13,12 @@ function Header() {
     const [showAfterRefresh, setShowAfterRefresh] = useState(false);
     const [cartValue, setCartValue] = useState(0);
 
-    const { image: profileImage } = useSelector((state) => state.user);
+    const { image: profileImage, email } = useSelector((state) => state.user);
+
+    // const [profileImage, dkfl] = useState();
+
+    console.log(process.env.REACT_APP_ADMIN);
+    console.log("data = ", email);
 
     const handleUserClick = () => {
         setShowAfterRefresh(true);
@@ -21,15 +26,9 @@ function Header() {
     };
 
     const handleLogout = () => {
-        // console.log("before = ", profileImage);
         dispatch(removeUser());
         toast("You have been successfully logged out.");
-        // console.log("after = ", profileImage);
     };
-
-    // useEffect(() => {
-    //     console.log(profileImage);
-    // }, [profileImage]);
 
     return (
         <header className=" fixed shadow-md shadow-zinc-700 w-full h-[70px] bg-black px-4 lg:px-16 z-50">
@@ -103,11 +102,14 @@ function Header() {
                                     } w-[110px] h-[65px] absolute right-0 text-left p-2 text-base bg-black shadow-md shadow-zinc-700`}
                                 >
                                     <ul>
-                                        <li className=" cursor-pointer hover:text-red-700 transition-all">
-                                            <Link to={"newproduct"}>
-                                                New Product
-                                            </Link>
-                                        </li>
+                                        {process.env.REACT_APP_ADMIN ===
+                                            email && (
+                                            <li className=" cursor-pointer hover:text-red-700 transition-all">
+                                                <Link to={"newproduct"}>
+                                                    New Product
+                                                </Link>
+                                            </li>
+                                        )}
                                         <li className=" cursor-pointer hover:text-red-700 transition-all">
                                             {profileImage ? (
                                                 <p onClick={handleLogout}>
@@ -123,7 +125,8 @@ function Header() {
                                 showAfterRefresh && (
                                     <div className=" bg-black h-[65px] w-[110px] absolute right-0 animate-scaleDown opacity-0 text-left text-base p-2 shadow-zinc-700 shadow-md">
                                         <ul>
-                                            <li>New Product</li>
+                                            {process.env.REACT_APP_ADMIN ===
+                                                email && <li>New Product</li>}
                                             {profileImage ? (
                                                 <li>LogOut</li>
                                             ) : (
