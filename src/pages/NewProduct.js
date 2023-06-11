@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdDriveFolderUpload } from "react-icons/md";
 import { ImageToBase64 } from "../utilities/ImageToBase64";
-import { fetchProductData } from "../api";
+import { postProductData } from "../api";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
@@ -31,7 +31,7 @@ function NewProduct() {
         // console.log(prodData);
         const { name, category, image, price, discription } = prodData;
         if (name && category && image && price && discription) {
-            const dataRes = await fetchProductData(prodData);
+            const dataRes = await postProductData(prodData);
             console.log("post = ", dataRes);
             toast("Product added successfully.");
             setProdData(initialProdData);

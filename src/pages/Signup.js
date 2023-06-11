@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { ImageToBase64 } from "../utilities/ImageToBase64.js";
-import { fetchData } from "../api";
+import { postSignupData } from "../api";
 import toast from "react-hot-toast";
 
 function Signup() {
@@ -26,12 +26,12 @@ function Signup() {
         if (firstName && email && password && confirmPassword) {
             setCheckReqField(false);
             if (password === confirmPassword) {
-                // const fetchData = await axios.post(
+                // const postSignupData = await axios.post(
                 //     `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
                 //     data
                 // );
 
-                const dataRes = await fetchData(data);
+                const dataRes = await postSignupData(data);
                 console.log(dataRes);
 
                 // console.log(data.image);

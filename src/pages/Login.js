@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchLoginData } from "../api";
+import { postLoginData } from "../api";
 import { addUser } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
@@ -20,7 +20,7 @@ function Login() {
         const { email, password } = data;
         if (email && password) {
             setCheckReqField(false);
-            const dataRes = await fetchLoginData(data);
+            const dataRes = await postLoginData(data);
             console.log("dataRes = ", dataRes);
             dispatch(addUser(dataRes.data.backendData));
             if (dataRes.data.alert) {

@@ -7,7 +7,7 @@ const url = "http://localhost:8080";
 //     return res;
 // };
 
-export const fetchData = (data) => axios.post(`${url}/signup`, data);
-export const fetchLoginData = (data) => axios.post(`${url}/login`, data);
-export const fetchProductData = (data) => axios.post(`${url}/addproduct`, data);
-export const getProductData = (data) => axios.get(`${url}/showproducts`, data);
+export const postSignupData = (data) => axios.post(`${url}/signup`, data);
+export const postLoginData = (data) => axios.post(`${url}/login`, data);
+export const postProductData = (data) => axios.post(`${url}/addproduct`, data);
+export const getProductData = () => axios.get(`${url}/showproducts`);
