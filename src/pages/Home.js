@@ -18,6 +18,12 @@ function Home() {
         dispatch(fetchProduct());
     }, [dispatch]);
 
+    // console.log("cts = ", products.category);
+    const filters = [
+        ...new Set(products.map((product, index) => product.category)),
+    ];
+    console.log("filters = ", filters);
+
     // console.log("useState = ", products);
     // console.log(status);
 
@@ -50,11 +56,13 @@ function Home() {
 
     return (
         <>
+            {/*-------------------------- top screen Home page heading and top products div -------------------- */}
             <div className="flex items-start justify-left gap-4 h-full bg-white">
+                {/*-------------------------------------- Home page Heading --------------------------------------- */}
                 <div className=" w-1/2 bg-lime-900 text-yellow-500 flex items-center justify-center h-full ">
                     <div
                         className="w-[550px] border-[6px]
-            border-yellow-500 p-4"
+                         border-yellow-500 p-4"
                     >
                         <div className="">
                             <h1 className=" text-7xl font-bold mb-4 ">
@@ -77,13 +85,15 @@ function Home() {
                         <div className="flex items-center justify-center pt-4 ">
                             <button
                                 className="border-[6px] border-yellow-500 px-5 py-3 hover:bg-yellow-500
-                             hover:text-lime-900 font-bold active:opacity-90"
+                                 hover:text-lime-900 font-bold active:opacity-90"
                             >
                                 Order Now
                             </button>
                         </div>
                     </div>
                 </div>
+
+                {/*----------------------------------------- top products -------------------------------------- */}
                 <div className="w-1/2 flex item-start justify-center gap-4 h-full flex-wrap p-10">
                     {status === "loading" ? (
                         <h1 className="flex items-center justify-center h-full font-bold text-5xl">
@@ -105,6 +115,8 @@ function Home() {
                     )}
                 </div>
             </div>
+
+            {/*------------------------------------ Vegitable products ------------------------------ */}
             <div>
                 <h4 className=" text-2xl font-bold p-4 ">Vegitables</h4>
                 <div className="flex overflow-y-hidden overflow-x-scroll scrollbar-none gap-4 p-4 pt-0">
@@ -147,6 +159,21 @@ function Home() {
                     )}
                 </div>
             </div>
+
+            {/*-------------------------------------- filters --------------------------------- */}
+            <div>
+                <div className=" font-bold text-2xl p-4">
+                    <h1>Categories</h1>
+                </div>
+                <div className="text-2xl p-4">
+                    {filters?.map((category, index) => {
+                        return <h4>{category}</h4>;
+                    })}
+                </div>
+            </div>
+
+            {/*--------------------------------- All products --------------------------------- */}
+            <div>All and filtered products</div>
         </>
     );
 }

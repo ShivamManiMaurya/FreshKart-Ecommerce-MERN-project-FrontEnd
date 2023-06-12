@@ -21,10 +21,10 @@ function Login() {
         if (email && password) {
             setCheckReqField(false);
             const dataRes = await postLoginData(data);
-            console.log("dataRes = ", dataRes);
+            // console.log("dataRes = ", dataRes);
             dispatch(addUser(dataRes.data.backendData));
             if (dataRes.data.alert) {
-                console.log("data: ", data);
+                // console.log("data: ", data);
                 toast(
                     dataRes.data.backendData.firstName +
                         " is successfully Logedin..."
