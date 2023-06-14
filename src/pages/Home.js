@@ -1,49 +1,49 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { getProductData } from "../api";
 import { fetchProduct } from "../redux/productSlice";
 import ProductCard from "../components/ProductCard";
-import { FcNext, FcPrevious } from "react-icons/fc";
+import ProductByCategory from "../components/ProductByCategory";
 
 function Home() {
     const dispatch = useDispatch();
     const { data: products, status } = useSelector((state) => state.product);
     const topProducts = products.slice(1, 5);
-    const vegitables = products.filter(
-        (product) => product.category === "Vegitables"
-    );
-    // console.log("vegies = ", vegitables);
+
+    // console.log(typeof status);
+
+    const [fitlteredProd, setFilteredProd] = useState(products);
+
+    useEffect(() => {
+        setFilteredProd(() => products);
+    }, [products]);
 
     useEffect(() => {
         dispatch(fetchProduct());
     }, [dispatch]);
 
-    // console.log("cts = ", products.category);
     const filters = [
         ...new Set(products.map((product, index) => product.category)),
     ];
-    console.log("filters = ", filters);
 
-    // console.log("useState = ", products);
-    // console.log(status);
+    // All categories list to pass data as a prop to ProductByCategory component........
+    // const categories = filters.reduce(
+    //     (filters, category) => ({ ...filters, [category]: category }),
+    //     {}
+    // );
+    // console.log("All Categories = ", categories.Vegitables);
+    // console.log(typeof categories?.Vegitables?.toString());
+    //.......................................
 
-    // if (status === "loading") {
-    //     return (
-    //         <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-    //             {status}...
-    //         </h1>
-    //     );
-    // }
-
-    const next = useRef();
-
-    const handleRightClick = () => {
-        // console.log(next.current);
-        next.current.scrollLeft += 400;
+    const handleFilterCategory = (category) => {
+        const filter = products.filter((product) => {
+            return product.category === category;
+        });
+        setFilteredProd(filter);
     };
 
-    const handleLeftClick = () => {
-        next.current.scrollLeft -= 400;
+    const handleAllProducts = () => {
+        setFilteredProd(products);
     };
 
     if (status === "error") {
@@ -95,85 +95,97 @@ function Home() {
 
                 {/*----------------------------------------- top products -------------------------------------- */}
                 <div className="w-1/2 flex item-start justify-center gap-4 h-full flex-wrap p-10">
-                    {status === "loading" ? (
-                        <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-                            {status}...
-                        </h1>
-                    ) : (
-                        topProducts?.map((product, index) => {
-                            return (
-                                <ProductCard
-                                    key={product._id}
-                                    name={product.name}
-                                    image={product.image}
-                                    price={product.price}
-                                    discription={product.discription}
-                                    category={product.category}
-                                />
-                            );
-                        })
-                    )}
-                </div>
-            </div>
-
-            {/*------------------------------------ Vegitable products ------------------------------ */}
-            <div>
-                <h4 className=" text-2xl font-bold p-4 ">Vegitables</h4>
-                <div className="flex overflow-y-hidden overflow-x-scroll scrollbar-none gap-4 p-4 pt-0">
-                    {status === "loading" ? (
-                        <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-                            {status}...
-                        </h1>
-                    ) : (
-                        <div
-                            className="flex overflow-y-hidden overflow-x-scroll scrollbar-none gap-4 p-4 pt-0 scroll-smooth transition-all  "
-                            ref={next}
-                        >
-                            <button
-                                className=" absolute right-0 text-8xl opacity-40 mt-[85px] hover:opacity-70 
-                            transition-all  active:opacity-40"
-                                onClick={() => handleRightClick()}
-                            >
-                                <FcNext />
-                            </button>
-                            <button
-                                className=" absolute left-0 text-8xl opacity-40 mt-[85px] hover:opacity-70
-                             transition-all active:opacity-40"
-                                onClick={() => handleLeftClick()}
-                            >
-                                <FcPrevious />
-                            </button>
-                            {vegitables?.map((vegitable, index) => {
-                                return (
-                                    <ProductCard
-                                        key={vegitable._id}
-                                        name={vegitable.name}
-                                        image={vegitable.image}
-                                        price={vegitable.price}
-                                        discription={vegitable.discription}
-                                        category={vegitable.category}
-                                    />
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            {/*-------------------------------------- filters --------------------------------- */}
-            <div>
-                <div className=" font-bold text-2xl p-4">
-                    <h1>Categories</h1>
-                </div>
-                <div className="text-2xl p-4">
-                    {filters?.map((category, index) => {
-                        return <h4>{category}</h4>;
+                    {topProducts?.map((product, index) => {
+                        return status === "loading" ? (
+                            <div>
+                                <h1 className="">{status}...</h1>
+                            </div>
+                        ) : (
+                            <ProductCard
+                                key={product._id}
+                                id={product._id}
+                                name={product.name}
+                                image={product.image}
+                                price={product.price}
+                                category={product.category}
+                                // status={status}
+                            />
+                        );
                     })}
                 </div>
             </div>
 
+            {/*------------------------------------ Categories wise products ------------------------------ */}
+
+            <ProductByCategory
+                category={"vegitables"}
+                status={status}
+                products={products}
+            />
+
+            <ProductByCategory
+                category={"fruits"}
+                status={status}
+                products={products}
+            />
+
+            {/*-------------------------------------- filters --------------------------------- */}
+            {status === "loading" ? (
+                <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+                    {status}...
+                </h1>
+            ) : (
+                <div>
+                    <div className=" font-bold text-2xl p-4">
+                        <h1>Categories</h1>
+                    </div>
+                    <div className="text-2xl p-4 flex">
+                        <button
+                            className="bg-green-400 active:bg-green-600"
+                            onClick={handleAllProducts}
+                        >
+                            All Products
+                        </button>
+                        {filters?.map((category, index) => {
+                            return (
+                                <div className=" m-2 " key={index}>
+                                    <button
+                                        className=" bg-green-400 active:bg-green-600"
+                                        onClick={() =>
+                                            handleFilterCategory(category)
+                                        }
+                                    >
+                                        <h4>{category}</h4>
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+
             {/*--------------------------------- All products --------------------------------- */}
-            <div>All and filtered products</div>
+            {status === "loading" ? (
+                <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+                    {status}...
+                </h1>
+            ) : (
+                <div className=" flex flex-wrap gap-4 items-center justify-center">
+                    {fitlteredProd.map((product, index) => {
+                        return (
+                            <ProductCard
+                                key={product._id}
+                                id={product._id}
+                                name={product.name}
+                                image={product.image}
+                                price={product.price}
+                                category={product.category}
+                                // status={status}
+                            />
+                        );
+                    })}
+                </div>
+            )}
         </>
     );
 }
