@@ -94,25 +94,28 @@ function Home() {
                 </div>
 
                 {/*----------------------------------------- top products -------------------------------------- */}
-                <div className="w-1/2 flex item-start justify-center gap-4 h-full flex-wrap p-10">
-                    {topProducts?.map((product, index) => {
-                        return status === "loading" ? (
-                            <div>
-                                <h1 className="">{status}...</h1>
-                            </div>
-                        ) : (
-                            <ProductCard
-                                key={product._id}
-                                id={product._id}
-                                name={product.name}
-                                image={product.image}
-                                price={product.price}
-                                category={product.category}
-                                // status={status}
-                            />
-                        );
-                    })}
-                </div>
+                {status === "loading" ? (
+                    <div>
+                        <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+                            {status}...
+                        </h1>
+                    </div>
+                ) : (
+                    <div className="w-1/2 flex item-start justify-center gap-4 h-full flex-wrap p-10">
+                        {topProducts?.map((product, index) => {
+                            return (
+                                <ProductCard
+                                    key={product._id}
+                                    id={product._id}
+                                    name={product.name}
+                                    image={product.image}
+                                    price={product.price}
+                                    category={product.category}
+                                />
+                            );
+                        })}
+                    </div>
+                )}
             </div>
 
             {/*------------------------------------ Categories wise products ------------------------------ */}
@@ -180,7 +183,6 @@ function Home() {
                                 image={product.image}
                                 price={product.price}
                                 category={product.category}
-                                // status={status}
                             />
                         );
                     })}

@@ -80,12 +80,6 @@ function Header() {
                             Home
                         </Link>
                         <Link
-                            to={"menu"}
-                            className="hover:text-red-700 transition-all"
-                        >
-                            Menu
-                        </Link>
-                        <Link
                             to={"about"}
                             className="hover:text-red-700 transition-all"
                         >

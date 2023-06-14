@@ -9,13 +9,29 @@ const STATUES = Object.freeze({
 
 const initialState = {
     data: [],
+    cartData: [],
     status: STATUES.IDLE,
 };
 
 const productSlice = createSlice({
     name: "product",
     initialState,
-    reducers: {},
+    reducers: {
+        addToCart(state, action) {
+            if (state.cartData.includes(action.payload)) {
+                return;
+            }
+            state.cartData.unshift(action.payload);
+            // console.log(state.cartData);
+        },
+        removeFromCart(state, action) {
+            if (!state.cartData.includes(action.payload)) {
+                return;
+            }
+            const index = state.cartData.indexOf(action.payload);
+            state.cartData.splice(index, 1);
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchProduct.pending, (state, action) => {
@@ -31,6 +47,7 @@ const productSlice = createSlice({
     },
 });
 
+export const { addToCart, removeFromCart } = productSlice.actions;
 export default productSlice.reducer;
 
 export const fetchProduct = createAsyncThunk("product", async () => {
