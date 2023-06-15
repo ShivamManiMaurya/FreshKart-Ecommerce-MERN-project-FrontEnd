@@ -17,7 +17,15 @@ function Cart() {
     //         products.filter((product) => product._id === item.id)[0]
     // );
     // console.log(cartProducts);
-    console.log(cartData);
+    // console.log(cartData);
+
+    const subtotal = cartData.reduce((acc, crr) => {
+        return acc + parseFloat(crr.total);
+    }, 0);
+
+    const totalQuantity = cartData.reduce((acc, crr) => {
+        return acc + parseInt(crr.qty);
+    }, 0);
 
     const handleRemove = (id) => {
         console.log(id);
@@ -36,15 +44,20 @@ function Cart() {
         dispatch(decreaseItem(id));
     };
 
+    if (totalQuantity <= 0) {
+        return (
+            <div>
+                <h2>Cart</h2>
+                <h4>Your FreshKart Cart is Empty</h4>
+            </div>
+        );
+    }
+
     return (
         <div>
-            <h2>Cart</h2>
             {cartData?.map((product, index) => {
                 return (
-                    <div
-                        key={product?.id}
-                        className="flex items-center justify-center gap-2 p-2"
-                    >
+                    <div key={product?.id} className="flex gap-2 p-2">
                         <div className="w-[150px] h-[150px]">
                             <img src={product?.image} alt="Product" />
                         </div>
@@ -76,10 +89,13 @@ function Cart() {
                             <div className="flex gap-4">
                                 {" "}
                                 <div>
-                                    <h6>{product.total}</h6>
-                                    <h6>{product?.category}</h6>
+                                    <h6>Price: {product.price}</h6>
                                 </div>
-                                <h6>{product.qty}</h6>
+                                <div>
+                                    <h6>Total: {product.total}</h6>
+                                    <h6>Category: {product?.category}</h6>
+                                </div>
+                                <h6>Quantity: {product.qty}</h6>
                             </div>
                             <p className="w-[400px]">
                                 {/* {product?.discription.slice(0, 80)}... */}
@@ -103,6 +119,9 @@ function Cart() {
                     </div>
                 );
             })}
+            <div>
+                Subtotal ({totalQuantity} items): {subtotal}
+            </div>
         </div>
     );
 }

@@ -43,7 +43,7 @@ const productSlice = createSlice({
             const index = state.cartData.findIndex(
                 (item) => item.id === action.payload
             );
-            state.cartData[index].qty++;
+            ++state.cartData[index].qty;
             const currentQty = state.cartData[index].qty;
             state.cartData[index].total =
                 state.cartData[index].price * currentQty;
@@ -55,7 +55,7 @@ const productSlice = createSlice({
             if (state.cartData[index].qty <= 1) {
                 return;
             }
-            state.cartData[index].qty--;
+            --state.cartData[index].qty;
             const currentQty = state.cartData[index].qty;
             state.cartData[index].total =
                 state.cartData[index].price * currentQty;

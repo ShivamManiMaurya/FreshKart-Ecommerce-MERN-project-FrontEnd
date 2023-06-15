@@ -35,7 +35,9 @@ function Home() {
     // console.log(typeof categories?.Vegitables?.toString());
     //.......................................
 
+    const [active, setActive] = useState("");
     const handleFilterCategory = (category) => {
+        setActive(category);
         const filter = products.filter((product) => {
             return product.category === category;
         });
@@ -44,6 +46,13 @@ function Home() {
 
     const handleAllProducts = () => {
         setFilteredProd(products);
+        setActive("");
+    };
+
+    const [showFilters, setShowFilters] = useState(false);
+
+    const handleFilters = () => {
+        setShowFilters((show) => !show);
     };
 
     if (status === "error") {
@@ -138,36 +147,54 @@ function Home() {
                     {status}...
                 </h1>
             ) : (
-                <div>
-                    <div className=" font-bold text-2xl p-4">
-                        <h1>Categories</h1>
-                    </div>
-                    <div className="text-2xl p-4 flex">
-                        <button
-                            className="bg-green-400 active:bg-green-600"
-                            onClick={handleAllProducts}
-                        >
-                            All Products
-                        </button>
-                        {filters?.map((category, index) => {
-                            return (
-                                <div className=" m-2 " key={index}>
-                                    <button
-                                        className=" bg-green-400 active:bg-green-600"
-                                        onClick={() =>
-                                            handleFilterCategory(category)
-                                        }
-                                    >
-                                        <h4>{category}</h4>
-                                    </button>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+                <>
+                    <button
+                        className="bg-green-400 active:bg-green-600"
+                        onClick={handleFilters}
+                    >
+                        Filters
+                    </button>
+                    {showFilters && (
+                        <div className="">
+                            <div className=" font-bold text-2xl p-4">
+                                <h1>Categories</h1>
+                            </div>
+                            <div className="text-2xl p-4 flex">
+                                <button
+                                    className={`${
+                                        !active && "bg-green-700"
+                                    } bg-green-400 active:bg-green-600`}
+                                    onClick={handleAllProducts}
+                                >
+                                    All Products
+                                </button>
+                                {filters?.map((category, index) => {
+                                    return (
+                                        <div className=" m-2 " key={index}>
+                                            <button
+                                                className={`${
+                                                    active === category &&
+                                                    "bg-green-700"
+                                                }  bg-green-400 active:bg-green-600`}
+                                                onClick={() =>
+                                                    handleFilterCategory(
+                                                        category
+                                                    )
+                                                }
+                                            >
+                                                <h4>{category}</h4>
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
 
             {/*--------------------------------- All products --------------------------------- */}
+            <h4 className="text-2xl font-bold p-4 ">Products</h4>
             {status === "loading" ? (
                 <h1 className="flex items-center justify-center h-full font-bold text-5xl">
                     {status}...

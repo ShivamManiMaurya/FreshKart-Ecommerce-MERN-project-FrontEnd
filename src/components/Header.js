@@ -19,22 +19,9 @@ function Header() {
     const { image: profileImage, email } = useSelector((state) => state.user);
     const { data, cartData } = useSelector((state) => state.product);
 
-    // const [profileImage, dkfl] = useState();
-
-    // console.log(process.env.REACT_APP_ADMIN);
-    // console.log("data = ", email);
-
-    const val = cartData.reduce((acc, crr) => acc + parseInt(crr.qty), 0);
-
-    console.log("totqty = ", val);
-    let totqty = 0;
-    for (let i = 0; i < val.length; i++) {
-        totqty += val[i];
-    }
-
-    console.log("tot = ", totqty);
-
-    console.log(" = ", cartData);
+    const quantity = cartData.reduce((acc, crr) => {
+        return acc + parseInt(crr.qty);
+    }, 0);
 
     const handleUserClick = () => {
         setShowAfterRefresh(true);
@@ -112,11 +99,11 @@ function Header() {
                             <FaShoppingCart />
                             <div
                                 className={`${
-                                    cartData.length > 0 ? "animate-bounce" : ""
+                                    quantity > 0 ? "animate-bounce" : ""
                                 } transition-all absolute top-4 lg:top-2 right-[104px] md:right-[64px] lg:right-[116px]
                                  bg-orange-600 rounded-full px-1 text-xs lg:text-sm text-white border text-center`}
                             >
-                                {cartData.length}
+                                {quantity}
                             </div>
                         </Link>
                     </div>
@@ -181,7 +168,7 @@ function Header() {
                         </div>
                     </div>
 
-                    {/*------------------------------------- Menu button -------------------------------------- */}
+                    {/*------------------------------------- Mobile view toggle button -------------------------------------- */}
                     <div className="text-white text-2xl md:hidden">
                         <button onClick={handleToggle}>
                             <ImMenu />

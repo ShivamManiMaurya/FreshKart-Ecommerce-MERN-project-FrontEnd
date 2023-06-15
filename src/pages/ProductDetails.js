@@ -24,7 +24,14 @@ function ProductDetails() {
     }, []);
 
     const handleAddToCart = () => {
-        dispatch(addToCart(filterid));
+        const cartProduct = {
+            id: filterid,
+            name: product?.name,
+            price: product?.price,
+            category: product?.category,
+            image: product?.image,
+        };
+        dispatch(addToCart(cartProduct));
     };
 
     return (
