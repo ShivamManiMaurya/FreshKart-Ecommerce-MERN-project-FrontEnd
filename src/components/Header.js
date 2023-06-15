@@ -17,11 +17,24 @@ function Header() {
     const [showMenu, setShowMenu] = useState(false);
 
     const { image: profileImage, email } = useSelector((state) => state.user);
+    const { data, cartData } = useSelector((state) => state.product);
 
     // const [profileImage, dkfl] = useState();
 
     // console.log(process.env.REACT_APP_ADMIN);
     // console.log("data = ", email);
+
+    const val = cartData.reduce((acc, crr) => acc + parseInt(crr.qty), 0);
+
+    console.log("totqty = ", val);
+    let totqty = 0;
+    for (let i = 0; i < val.length; i++) {
+        totqty += val[i];
+    }
+
+    console.log("tot = ", totqty);
+
+    console.log(" = ", cartData);
 
     const handleUserClick = () => {
         setShowAfterRefresh(true);
@@ -99,11 +112,11 @@ function Header() {
                             <FaShoppingCart />
                             <div
                                 className={`${
-                                    cartValue > 0 ? "animate-bounce" : ""
+                                    cartData.length > 0 ? "animate-bounce" : ""
                                 } transition-all absolute top-4 lg:top-2 right-[104px] md:right-[64px] lg:right-[116px]
                                  bg-orange-600 rounded-full px-1 text-xs lg:text-sm text-white border text-center`}
                             >
-                                {cartValue}
+                                {cartData.length}
                             </div>
                         </Link>
                     </div>

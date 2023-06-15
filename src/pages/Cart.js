@@ -1,45 +1,88 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../redux/productSlice";
+import {
+    decreaseItem,
+    increaseItem,
+    removeFromCart,
+} from "../redux/productSlice";
+import { AiFillPlusSquare } from "react-icons/ai";
+import { AiFillMinusSquare } from "react-icons/ai";
 
 function Cart() {
     const dispatch = useDispatch();
-    const {
-        data: products,
-        cartData: cartAddedIds,
-        status,
-    } = useSelector((state) => state.product);
-    console.log(status);
+    const { cartData, status } = useSelector((state) => state.product);
 
-    const cartProducts = cartAddedIds.map(
-        (id, index) => products.filter((product) => product._id === id)[0]
-    );
+    // const cartProducts = cartData.map(
+    //     (item, index) =>
+    //         products.filter((product) => product._id === item.id)[0]
+    // );
+    // console.log(cartProducts);
+    console.log(cartData);
 
     const handleRemove = (id) => {
+        console.log(id);
         dispatch(removeFromCart(id));
+    };
+
+    const handleIncrease = (id) => {
+        dispatch(increaseItem(id));
+    };
+
+    const handleDecrease = (id, qty) => {
+        if (qty <= 1) {
+            dispatch(removeFromCart(id));
+            return;
+        }
+        dispatch(decreaseItem(id));
     };
 
     return (
         <div>
             <h2>Cart</h2>
-            {cartProducts?.map((product, index) => {
+            {cartData?.map((product, index) => {
                 return (
                     <div
-                        key={product._id}
+                        key={product?.id}
                         className="flex items-center justify-center gap-2 p-2"
                     >
                         <div className="w-[150px] h-[150px]">
-                            <img src={product.image} alt="Product" />
+                            <img src={product?.image} alt="Product" />
                         </div>
                         <div>
-                            <h4>{product.name}</h4>
+                            <div className=" flex justify-between items-center">
+                                <h4>{product?.name}</h4>
+                                <div className="flex gap-2 text-2xl p-2">
+                                    <button
+                                        className=" hover:opacity-70 active:text-[25px] active:p-0"
+                                        onClick={() =>
+                                            handleIncrease(product?.id)
+                                        }
+                                    >
+                                        <AiFillPlusSquare />
+                                    </button>
+                                    <button
+                                        className=" hover:opacity-70 active:text-[25px] active:p-0"
+                                        onClick={() =>
+                                            handleDecrease(
+                                                product?.id,
+                                                product.qty
+                                            )
+                                        }
+                                    >
+                                        <AiFillMinusSquare />
+                                    </button>
+                                </div>
+                            </div>
                             <div className="flex gap-4">
                                 {" "}
-                                <h6>{product.price}</h6>
-                                <h6>{product.category}</h6>
+                                <div>
+                                    <h6>{product.total}</h6>
+                                    <h6>{product?.category}</h6>
+                                </div>
+                                <h6>{product.qty}</h6>
                             </div>
                             <p className="w-[400px]">
-                                {product.discription.slice(0, 80)}...
+                                {/* {product?.discription.slice(0, 80)}... */}
                             </p>
                             <div className="flex">
                                 <button
@@ -51,7 +94,7 @@ function Cart() {
                                 <button
                                     className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
                                 m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
-                                    onClick={() => handleRemove(product._id)}
+                                    onClick={() => handleRemove(product?.id)}
                                 >
                                     Remove
                                 </button>

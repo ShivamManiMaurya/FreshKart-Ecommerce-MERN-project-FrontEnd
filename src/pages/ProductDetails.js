@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchProduct } from "../redux/productSlice";
+import { addToCart, fetchProduct } from "../redux/productSlice";
 import ProductByCategory from "../components/ProductByCategory";
 
 function ProductDetails() {
@@ -22,6 +22,10 @@ function ProductDetails() {
         dispatch(fetchProduct());
         // console.log("runs");
     }, []);
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(filterid));
+    };
 
     return (
         <>
@@ -46,6 +50,7 @@ function ProductDetails() {
                                 <button
                                     className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
                                  shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                                    onClick={handleAddToCart}
                                 >
                                     Add Cart
                                 </button>

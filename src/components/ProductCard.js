@@ -7,8 +7,14 @@ const ProductCard = ({ id, image, name, price, category }) => {
     const dispatch = useDispatch();
     // const [cartProducts, setCartProducts] = useState([]);
 
-    const handleAddToCart = (id) => {
-        const cartProduct = id;
+    const handleAddToCart = () => {
+        const cartProduct = {
+            id: id,
+            name: name,
+            price: price,
+            category: category,
+            image: image,
+        };
         dispatch(addToCart(cartProduct));
     };
 
@@ -34,7 +40,7 @@ const ProductCard = ({ id, image, name, price, category }) => {
                 <button
                     className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
                     m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
-                    onClick={() => handleAddToCart(id)}
+                    onClick={handleAddToCart}
                 >
                     Add Cart
                 </button>

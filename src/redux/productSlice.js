@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getProductData } from "../api";
+import toast from "react-hot-toast";
 
 const STATUES = Object.freeze({
     LOADING: "loading",
@@ -10,6 +11,7 @@ const STATUES = Object.freeze({
 const initialState = {
     data: [],
     cartData: [],
+    quantity: 0,
     status: STATUES.IDLE,
 };
 
@@ -18,18 +20,45 @@ const productSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action) {
-            if (state.cartData.includes(action.payload)) {
+            if (state.cartData.some((item) => item.id === action.payload.id)) {
+                toast("Item is Already in the cart...!");
                 return;
             }
-            state.cartData.unshift(action.payload);
-            // console.log(state.cartData);
+            const total = action.payload.price;
+            state.cartData.unshift({
+                ...action.payload,
+                qty: 1,
+                total: total,
+            });
+            toast("Item Added to the Cart.");
         },
         removeFromCart(state, action) {
-            if (!state.cartData.includes(action.payload)) {
+            const index = state.cartData.findIndex(
+                (item) => item.id === action.payload
+            );
+            state.cartData.splice(index, 1);
+            toast("Item is removed");
+        },
+        increaseItem(state, action) {
+            const index = state.cartData.findIndex(
+                (item) => item.id === action.payload
+            );
+            state.cartData[index].qty++;
+            const currentQty = state.cartData[index].qty;
+            state.cartData[index].total =
+                state.cartData[index].price * currentQty;
+        },
+        decreaseItem(state, action) {
+            const index = state.cartData.findIndex(
+                (item) => item.id === action.payload
+            );
+            if (state.cartData[index].qty <= 1) {
                 return;
             }
-            const index = state.cartData.indexOf(action.payload);
-            state.cartData.splice(index, 1);
+            state.cartData[index].qty--;
+            const currentQty = state.cartData[index].qty;
+            state.cartData[index].total =
+                state.cartData[index].price * currentQty;
         },
     },
     extraReducers: (builder) => {
@@ -47,7 +76,8 @@ const productSlice = createSlice({
     },
 });
 
-export const { addToCart, removeFromCart } = productSlice.actions;
+export const { addToCart, removeFromCart, increaseItem, decreaseItem } =
+    productSlice.actions;
 export default productSlice.reducer;
 
 export const fetchProduct = createAsyncThunk("product", async () => {
