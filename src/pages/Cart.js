@@ -7,17 +7,13 @@ import {
 } from "../redux/productSlice";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { AiFillMinusSquare } from "react-icons/ai";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { loadStripe } from "@stripe/stripe-js";
 
 function Cart() {
     const dispatch = useDispatch();
     const { cartData, status } = useSelector((state) => state.product);
-
-    // const cartProducts = cartData.map(
-    //     (item, index) =>
-    //         products.filter((product) => product._id === item.id)[0]
-    // );
-    // console.log(cartProducts);
-    // console.log(cartData);
 
     const subtotal = cartData.reduce((acc, crr) => {
         return acc + parseFloat(crr.total);
@@ -42,6 +38,57 @@ function Cart() {
             return;
         }
         dispatch(decreaseItem(id));
+    };
+
+    console.log(cartData);
+    const handlePayment = async () => {
+        // const stripePromise = await loadStripe(
+        //     process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+        // );
+        // // const postPaymentData = await axios.post(
+        // //     `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
+        // //     cartData
+        // // );
+        // //////////////////////////////
+        // // const postPaymentData = await fetch(
+        // //     `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
+        // //     {
+        // //         method: "POST",
+        // //         headers: {
+        // //             "content-type": "application/json",
+        // //         },
+        // //         body: JSON.stringify(cartData),
+        // //     }
+        // // );
+        // ////////////////////////
+        // if (postPaymentData.statusCode === 500) return;
+
+        // const dataRes = await postPaymentData.json();
+        // console.log(dataRes);
+
+        // toast("Redirect to payment gatway.");
+        // stripePromise.redirectToCheckout({ sessionId: dataRes });
+
+        const stripePromise = await loadStripe(
+            process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+        );
+        const res = await fetch(
+            `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
+            {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(cartData),
+            }
+        );
+        if (res.statusCode === 500) return;
+
+        const data = await res.json();
+        console.log(data);
+
+        toast("Redirect to payment Gateway...!");
+        stripePromise.redirectToCheckout({ sessionId: data });
     };
 
     if (totalQuantity <= 0) {
@@ -103,13 +150,7 @@ function Cart() {
                             <div className="flex">
                                 <button
                                     className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
-                                m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
-                                >
-                                    Buy
-                                </button>
-                                <button
-                                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
-                                m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                                    m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
                                     onClick={() => handleRemove(product?.id)}
                                 >
                                     Remove
@@ -119,8 +160,15 @@ function Cart() {
                     </div>
                 );
             })}
-            <div>
-                Subtotal ({totalQuantity} items): {subtotal}
+            <div className="flex gap-2">
+                Subtotal ({totalQuantity} items): {subtotal}{" "}
+                <button
+                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
+                                    m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                    onClick={handlePayment}
+                >
+                    Payment
+                </button>
             </div>
         </div>
     );
