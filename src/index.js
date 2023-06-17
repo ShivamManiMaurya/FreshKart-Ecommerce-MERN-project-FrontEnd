@@ -13,6 +13,9 @@ import NewProduct from "./pages/NewProduct";
 import Signup from "./pages/Signup";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+// import StripeCheckout from "./pages/StripeCheckout";
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
 
 const router = createBrowserRouter([
     {
@@ -39,6 +42,10 @@ const router = createBrowserRouter([
                 path: "cart",
                 element: <Cart />,
             },
+            // {
+            //     path: "/stripe-checkout/",
+            //     element: <StripeCheckout />,
+            // },
             {
                 path: "login",
                 element: <Login />,
@@ -50,6 +57,14 @@ const router = createBrowserRouter([
             {
                 path: "newproduct",
                 element: <NewProduct />,
+            },
+            {
+                path: "success",
+                element: <Success />,
+            },
+            {
+                path: "cancel",
+                element: <Cancel />,
             },
         ],
     },

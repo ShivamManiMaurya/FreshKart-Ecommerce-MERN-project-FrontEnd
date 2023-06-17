@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addToCart, fetchProduct } from "../redux/productSlice";
 import ProductByCategory from "../components/ProductByCategory";
 
 function ProductDetails() {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const { filterid } = useParams();
-    // console.log("id = ", filterid);
-
-    // console.log("name = ", data);
 
     const { data: products, status } = useSelector((state) => state.product);
-    // console.log("dks= ", products);
 
     const product = products.filter((product) => product._id === filterid)[0];
-    // console.log("prod = ", product?.name);
 
     useEffect(() => {
         dispatch(fetchProduct());
-        // console.log("runs");
     }, []);
 
     const handleAddToCart = () => {
@@ -32,6 +26,18 @@ function ProductDetails() {
             image: product?.image,
         };
         dispatch(addToCart(cartProduct));
+    };
+
+    const handleBuy = () => {
+        const cartProduct = {
+            id: filterid,
+            name: product?.name,
+            price: product?.price,
+            category: product?.category,
+            image: product?.image,
+        };
+        dispatch(addToCart(cartProduct));
+        navigate("/cart");
     };
 
     return (
@@ -51,6 +57,7 @@ function ProductDetails() {
                                 <button
                                     className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
                                 shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                                    onClick={handleBuy}
                                 >
                                     Buy
                                 </button>

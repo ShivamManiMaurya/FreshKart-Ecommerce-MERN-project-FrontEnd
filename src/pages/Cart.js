@@ -10,10 +10,13 @@ import { AiFillMinusSquare } from "react-icons/ai";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function Cart() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { cartData, status } = useSelector((state) => state.product);
+    const { email } = useSelector((state) => state.user);
 
     const subtotal = cartData.reduce((acc, crr) => {
         return acc + parseFloat(crr.total);
@@ -42,53 +45,48 @@ function Cart() {
 
     console.log(cartData);
     const handlePayment = async () => {
-        // const stripePromise = await loadStripe(
-        //     process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-        // );
-        // // const postPaymentData = await axios.post(
-        // //     `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
-        // //     cartData
-        // // );
-        // //////////////////////////////
-        // // const postPaymentData = await fetch(
-        // //     `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
-        // //     {
-        // //         method: "POST",
-        // //         headers: {
-        // //             "content-type": "application/json",
-        // //         },
-        // //         body: JSON.stringify(cartData),
-        // //     }
-        // // );
-        // ////////////////////////
-        // if (postPaymentData.statusCode === 500) return;
+        if (email) {
+            const stripePromise = await loadStripe(
+                "pk_test_51NJWf9SBn3VU9HQMM0KID5RJTXkD2o2cMvDz9ffdmP7cae1cEYpgt6hQLa9vADG5Iwqd5TieUTBv6E9O0b8QW7NI00NRyryC3b"
+            );
+            // const postPaymentData = await axios.post(
+            //     `http://localhost:8080/create-checkout-session`,
+            //     cartData
+            // );
+            // if (postPaymentData.statusCode === 500) return;
+            // const dataRes = postPaymentData;
+            // console.log(dataRes);
+            // toast("Redirect to payment gatway.");
+            // stripePromise.redirectToCheckout({ sessionId: dataRes });
 
-        // const dataRes = await postPaymentData.json();
-        // console.log(dataRes);
+            // *********************************************************************************************
 
-        // toast("Redirect to payment gatway.");
-        // stripePromise.redirectToCheckout({ sessionId: dataRes });
+            // const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+            const res = await fetch(
+                `http://localhost:8080/create-checkout-session`,
+                {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(cartData),
+                }
+            );
+            if (res.statusCode === 500) return;
 
-        const stripePromise = await loadStripe(
-            process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-        );
-        const res = await fetch(
-            `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
-            {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(cartData),
-            }
-        );
-        if (res.statusCode === 500) return;
+            const data = await res.json();
+            console.log(data);
 
-        const data = await res.json();
-        console.log(data);
+            toast("Redirect to payment Gateway...!");
+            stripePromise.redirectToCheckout({ sessionId: data });
+        } else {
+            toast("You have not Login!");
+            setTimeout(() => {
+                navigate("/login");
+            }, 1000);
+        }
 
-        toast("Redirect to payment Gateway...!");
-        stripePromise.redirectToCheckout({ sessionId: data });
+        // <Navigate to="/StripeCheckout" replace={true}></Navigate>;
     };
 
     if (totalQuantity <= 0) {
@@ -169,6 +167,12 @@ function Cart() {
                 >
                     Payment
                 </button>
+                <Link
+                    to="/stripe-checkout/"
+                    className=" font-bold bg-red-500 active:bg-red-700 hover:bg-red-600"
+                >
+                    TotalPay
+                </Link>
             </div>
         </div>
     );
