@@ -35,6 +35,7 @@ function Header() {
 
     const handleToggle = () => {
         setShowMenu((prev) => !prev);
+        setShowAfterRefresh(true);
     };
 
     return (
@@ -49,9 +50,9 @@ function Header() {
                 </Link>
 
                 {/*---------------------- Search, Menu, Cart, User, MenuButton parent div ---------------------------- */}
-                <div className="flex items-center justify-between gap-4 lg:gap-6">
+                <div className="flex items-center justify-between gap-3 lg:gap-6">
                     {/*----------------------------- Search bar and button --------------------------------- */}
-                    <div
+                    {/* <div
                         className={`${
                             !showMenu && "hidden md:flex"
                         }  text-white flex absolute left-0 top-[90px] pl-4 md:p-0 md:static z-20`}
@@ -64,14 +65,53 @@ function Header() {
                         <button className=" active:text-lg active:px-[7px] border-e-2 border-t-2 border-b-2 border-white px-2 rounded-r-md">
                             <BiSearchAlt />
                         </button>
-                    </div>
+                    </div> */}
 
                     {/*--------------------------------- All menu links --------------------------------*/}
+
+                    {showMenu ? (
+                        <nav
+                            className={`${
+                                showMenu &&
+                                "animate-scaleUp md:animate-none md:hidden "
+                            }  text-white absolute top-[73px] left-0 p-4 bg-black w-full  
+                        flex flex-col gap-3 font-bold mr-0 `}
+                        >
+                            <Link
+                                to={""}
+                                className="hover:text-red-700 transition-all"
+                            >
+                                Home
+                            </Link>
+                            <Link
+                                to={"about"}
+                                className="hover:text-red-700 transition-all"
+                            >
+                                About
+                            </Link>
+                            <Link
+                                to={"contact"}
+                                className="hover:text-red-700 transition-all"
+                            >
+                                Contact
+                            </Link>
+                        </nav>
+                    ) : (
+                        showAfterRefresh && (
+                            <nav
+                                className=" animate-scaleDown opacity-0 bg-black text-white absolute top-[73px] left-0 p-4 w-full  
+                        flex flex-col gap-3 font-bold mr-0 "
+                            >
+                                <div>Home</div>
+                                <div>About</div>
+                                <div>Contact</div>
+                            </nav>
+                        )
+                    )}
+
                     <nav
-                        className={`${
-                            !showMenu && "hidden md:flex"
-                        } text-green-400 absolute md:static top-[73px] left-0 p-4 pt-[65px] md:p-0 bg-black w-full  
-                        flex flex-col md:flex-row gap-3 lg:gap-6 lg:text-lg font-bold mr-0 lg:mr-2`}
+                        className={` hidden text-white md:top-[73px] md:p-0 bg-black w-full  
+                        md:flex md:flex-row md:gap-3 lg:gap-6 lg:text-lg font-bold md:mr-0 lg:mr-2`}
                     >
                         <Link
                             to={""}
@@ -100,7 +140,7 @@ function Header() {
                             <div
                                 className={`${
                                     quantity > 0 ? "animate-bounce" : ""
-                                } transition-all absolute top-4 lg:top-2 right-[104px] md:right-[64px] lg:right-[116px]
+                                } transition-all absolute top-4 lg:top-3 right-[96px] md:right-[60px] lg:right-[128px]
                                  bg-orange-600 rounded-full px-1 text-xs lg:text-sm text-white border text-center`}
                             >
                                 {quantity}
@@ -111,24 +151,22 @@ function Header() {
                     {/*--------------------------- User Button Icon and Image Logic -------------------  */}
                     <div className="text-white" onClick={handleUserClick}>
                         <div className="">
-                            <div className="hover:text-red-700 w-10 h-10 cursor-pointer transition-all mt-4 lg:mt-0">
+                            <div className="hover:text-red-700 w-8 h-8 lg:w-10 lg:h-10 cursor-pointer transition-all ml-2 mt-[6px] lg:mt-0">
                                 {profileImage ? (
                                     <img
                                         src={profileImage}
                                         alt="profile"
-                                        className="w-full h-full overflow-hidden"
+                                        className="w-full h-full overflow-hidden rounded-full"
                                     ></img>
                                 ) : (
-                                    <FaUser className=" text-2xl lg:text-4xl" />
+                                    <FaUser className="w-fit text-2xl lg:text-4xl" />
                                 )}
                             </div>
                             {showUserMenu ? (
                                 <div
                                     className={`${
-                                        showUserMenu
-                                            ? "animate-scaleUp"
-                                            : "animate-scaleDown"
-                                    } w-[110px] h-[65px] absolute right-0 text-left p-2 text-base bg-black shadow-md shadow-zinc-700`}
+                                        showUserMenu && "animate-scaleUp "
+                                    } w-[110px] h-fit absolute right-0 text-left p-2 text-base bg-black shadow-md shadow-zinc-700`}
                                 >
                                     <ul>
                                         {process.env.REACT_APP_ADMIN ===
@@ -152,7 +190,7 @@ function Header() {
                                 </div>
                             ) : (
                                 showAfterRefresh && (
-                                    <div className=" bg-black h-[65px] w-[110px] absolute right-0 animate-scaleDown opacity-0 text-left text-base p-2 shadow-zinc-700 shadow-md">
+                                    <div className=" bg-black h-fit w-[110px] absolute right-0 animate-scaleDown opacity-0 text-left text-base p-2 shadow-zinc-700 shadow-md">
                                         <ul>
                                             {process.env.REACT_APP_ADMIN ===
                                                 email && <li>New Product</li>}
@@ -169,7 +207,7 @@ function Header() {
                     </div>
 
                     {/*------------------------------------- Mobile view toggle button -------------------------------------- */}
-                    <div className="text-white text-2xl md:hidden">
+                    <div className="text-white text-2xl mt-[6px] md:hidden active:text-red-700 hover:text-red-700">
                         <button onClick={handleToggle}>
                             <ImMenu />
                         </button>

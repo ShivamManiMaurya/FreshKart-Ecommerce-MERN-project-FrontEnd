@@ -38,6 +38,18 @@ module.exports = {
                         opacity: "1",
                     },
                 },
+
+                open: {
+                    "0%": {
+                        transform: "scaleY(1)",
+                        transformOrigin: "100% 0%",
+                    },
+                    "100%": {
+                        transform: "scaleY(0.4)",
+                        // transformOrigin: "100% 0%",
+                        display: "hidden",
+                    },
+                },
             },
 
             animation: {
@@ -45,6 +57,7 @@ module.exports = {
                 slideFrom: "slideFrom 1s ease-in-out",
                 scaleUp: "scaleUp 0.1s ease-out",
                 scaleDown: "scaleDown 0.1s ease-in",
+                menuOpen: "open 0.1s ease-out",
             },
         },
     },

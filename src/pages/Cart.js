@@ -7,15 +7,14 @@ import {
 } from "../redux/productSlice";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { AiFillMinusSquare } from "react-icons/ai";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Cart() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { cartData, status } = useSelector((state) => state.product);
+    const { cartData } = useSelector((state) => state.product);
     const { email } = useSelector((state) => state.user);
 
     const subtotal = cartData.reduce((acc, crr) => {
@@ -46,9 +45,9 @@ function Cart() {
     console.log(cartData);
     const handlePayment = async () => {
         if (email) {
-            const stripePromise = await loadStripe(
-                "pk_test_51NJWf9SBn3VU9HQMM0KID5RJTXkD2o2cMvDz9ffdmP7cae1cEYpgt6hQLa9vADG5Iwqd5TieUTBv6E9O0b8QW7NI00NRyryC3b"
-            );
+            // const stripePromise = await loadStripe(
+            //     "pk_test_51NJWf9SBn3VU9HQMM0KID5RJTXkD2o2cMvDz9ffdmP7cae1cEYpgt6hQLa9vADG5Iwqd5TieUTBv6E9O0b8QW7NI00NRyryC3b"
+            // );
             // const postPaymentData = await axios.post(
             //     `http://localhost:8080/create-checkout-session`,
             //     cartData
@@ -58,12 +57,12 @@ function Cart() {
             // console.log(dataRes);
             // toast("Redirect to payment gatway.");
             // stripePromise.redirectToCheckout({ sessionId: dataRes });
-
             // *********************************************************************************************
-
-            // const stripePromise = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+            const stripePromise = await loadStripe(
+                process.env.REACT_APP_STRIPE_PUBLIC_KEY
+            );
             const res = await fetch(
-                `http://localhost:8080/create-checkout-session`,
+                `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
                 {
                     method: "POST",
                     headers: {
@@ -85,8 +84,6 @@ function Cart() {
                 navigate("/login");
             }, 1000);
         }
-
-        // <Navigate to="/StripeCheckout" replace={true}></Navigate>;
     };
 
     if (totalQuantity <= 0) {

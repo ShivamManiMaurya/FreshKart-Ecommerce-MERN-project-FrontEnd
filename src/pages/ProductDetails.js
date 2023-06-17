@@ -10,7 +10,6 @@ function ProductDetails() {
     const { filterid } = useParams();
 
     const { data: products, status } = useSelector((state) => state.product);
-
     const product = products.filter((product) => product._id === filterid)[0];
 
     useEffect(() => {
