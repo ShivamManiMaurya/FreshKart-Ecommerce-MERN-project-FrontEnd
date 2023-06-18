@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { getProductData } from "../api";
 import { fetchProduct } from "../redux/productSlice";
 import ProductCard from "../components/ProductCard";
 import ProductByCategory from "../components/ProductByCategory";
 import { ImSpinner10 } from "react-icons/im";
 import { FaFilter } from "react-icons/fa";
 import { MdDoubleArrow } from "react-icons/md";
-import { BiCategoryAlt } from "react-icons/bi";
+import { ImSpoonKnife } from "react-icons/im";
+import { BsFillBasket2Fill } from "react-icons/bs";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 function Home() {
     const dispatch = useDispatch();
@@ -57,6 +58,16 @@ function Home() {
 
     const handleFilters = () => {
         setShowFilters((show) => !show);
+    };
+
+    const next = useRef();
+
+    const handleRightClick = () => {
+        next.current.scrollLeft += 400;
+    };
+
+    const handleLeftClick = () => {
+        next.current.scrollLeft -= 400;
     };
 
     if (status === "error") {
@@ -157,7 +168,7 @@ function Home() {
             {/*-------------------------------------- filters --------------------------------- */}
             {status === "loading" ? (
                 <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-                    {status}...
+                    <ImSpinner10 className=" text-black" />
                 </h1>
             ) : (
                 <>
@@ -172,34 +183,76 @@ function Home() {
                     {showFilters && (
                         <div className=" ">
                             <div className="flex items-center gap-2 font-bold text-2xl p-4 underline decoration-red-700">
-                                <BiCategoryAlt className="tex-red-700" />
+                                <ImSpoonKnife className="text-red-700" />
                                 <h1>Categories</h1>
                             </div>
-                            <div className="text-2xl p-4 flex overflow-y-hidden overflow-x-scroll scrollbar-none">
-                                <button
-                                    className={`${
-                                        !active && "bg-green-700"
-                                    } bg-green-400 active:bg-green-600`}
-                                    onClick={handleAllProducts}
-                                >
-                                    All Products
-                                </button>
+                            <div
+                                className="text-2xl p-4 m-4 flex items-center md:justify-center overflow-y-hidden 
+                                    overflow-x-scroll scrollbar-none scroll-smooth transition-all"
+                                ref={next}
+                            >
+                                <div className="m-2">
+                                    <button
+                                        className=" absolute right-0 z-20 text-7xl md:text-9xl opacity-60 
+                                           md:mt-0 mt-[50px]  hover:opacity-70 transition-all  active:opacity-50"
+                                        onClick={handleRightClick}
+                                    >
+                                        <MdNavigateNext className=" text-red-700" />
+                                    </button>
+                                    <button
+                                        className=" absolute left-0 z-20 text-7xl md:text-9xl opacity-60 md:mt-0 mt-[50px]  hover:opacity-70
+                                            transition-all active:opacity-50"
+                                        onClick={handleLeftClick}
+                                    >
+                                        <MdNavigateBefore className=" text-red-700" />
+                                    </button>
+                                    <button
+                                        className={`${
+                                            !active && "bg-red-700"
+                                        } bg-black active:opacity-80 rounded-full`}
+                                        onClick={handleAllProducts}
+                                    >
+                                        <div className="w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden">
+                                            <ImSpoonKnife
+                                                className={`${
+                                                    !active && " text-black"
+                                                } text-red-700 "`}
+                                            />
+                                        </div>
+                                    </button>
+                                    <p className=" text-base text-center underline underline-offset-2 decoration-red-700">
+                                        All
+                                    </p>
+                                </div>
                                 {filters?.map((category, index) => {
                                     return (
                                         <div className=" m-2 " key={index}>
                                             <button
                                                 className={`${
                                                     active === category &&
-                                                    "bg-green-700"
-                                                }  bg-green-400 active:bg-green-600`}
+                                                    " bg-red-700"
+                                                }  bg-black active:opacity-80 rounded-full`}
                                                 onClick={() =>
                                                     handleFilterCategory(
                                                         category
                                                     )
                                                 }
                                             >
-                                                <h4>{category}</h4>
+                                                <div
+                                                    className={` w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden`}
+                                                >
+                                                    <ImSpoonKnife
+                                                        className={`${
+                                                            active ===
+                                                                category &&
+                                                            " text-black"
+                                                        } text-red-700 "`}
+                                                    />
+                                                </div>
                                             </button>
+                                            <p className=" text-base text-center underline underline-offset-2 decoration-red-700">
+                                                {category}
+                                            </p>
                                         </div>
                                     );
                                 })}
@@ -210,10 +263,13 @@ function Home() {
             )}
 
             {/*--------------------------------- All products --------------------------------- */}
-            <h4 className="text-2xl font-bold p-4 ">Products</h4>
+            <h4 className=" flex items-center gap-2 text-2xl font-bold p-4 underline decoration-red-700 ">
+                <BsFillBasket2Fill className=" text-red-700" />
+                Products
+            </h4>
             {status === "loading" ? (
                 <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-                    {status}...
+                    <ImSpinner10 className=" text-black" />
                 </h1>
             ) : (
                 <div className=" flex flex-wrap gap-4 items-center justify-center">

@@ -39,7 +39,7 @@ const ProductCard = ({ id, image, name, price, category }) => {
                     {price}
                 </h4>
                 <p className="px-4 text-sm">
-                    <spna className="font-bold">Category:</spna> {category}
+                    <span className="font-bold">Category:</span> {category}
                 </p>
 
                 <div className="mx-3 ">
