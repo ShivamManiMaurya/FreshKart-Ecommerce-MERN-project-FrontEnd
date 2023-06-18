@@ -50,7 +50,7 @@ function Login() {
     };
 
     return (
-        <div className="flex h-full justify-center items-center">
+        <div className="flex w-[320px] m-auto sm:w-auto h-full justify-center items-center">
             <div className=" pt-3 w-full max-w-sm bg-white rounded-sm shadow-sm shadow-zinc-500">
                 <div className="w-[100px] pb-0 m-auto">
                     <img

@@ -4,6 +4,7 @@ import { ImageToBase64 } from "../utilities/ImageToBase64";
 import { postProductData } from "../api";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 
 function NewProduct() {
     const initialCategories = ["Fruits", "Vegitables", "Pizza", "Burgers"];
@@ -22,6 +23,7 @@ function NewProduct() {
     const [prodData, setProdData] = useState(initialProdData);
 
     const handleAddCategory = () => {
+        if (newCategory === "") return;
         setCategories([...categories, newCategory]);
         setNewCategory("");
     };
@@ -36,11 +38,13 @@ function NewProduct() {
             toast("Product added successfully.");
             setProdData(initialProdData);
         } else {
-            console.log("please enter the required values");
+            // console.log("please enter the required values");
+            toast("Please enter the required values first...!");
         }
     };
 
     const handleProdInput = (e) => {
+        // if (e.target.value === "Select Category") return;
         const { name, value } = e.target;
         setProdData((prev) => {
             return {
@@ -70,9 +74,18 @@ function NewProduct() {
             {email !== process.env.REACT_APP_ADMIN ? (
                 <h1>Admin is Logged out...Please login to Add products...!</h1>
             ) : (
-                <div className=" pt-3 w-full max-w-sm bg-white rounded-sm shadow-sm shadow-zinc-500">
+                <div className=" pt-3 w-[320px] sm:w-full max-w-sm bg-white rounded-sm shadow-sm shadow-zinc-500 ">
                     {" "}
-                    <h1>Product Upload</h1>
+                    <div className="w-[100px] pb-0 m-auto flex items-center justify-center gap-2 underline decoration-red-700">
+                        <img
+                            src={loginGifAnimation}
+                            alt=""
+                            className=" animate-wiggle"
+                        />
+                        <h1 className=" text-md font-bold mb-3">
+                            Product Upload
+                        </h1>
+                    </div>
                     <form
                         action=""
                         className=" mx-8 pb-4"
@@ -103,7 +116,7 @@ function NewProduct() {
                             <select
                                 name="category"
                                 id="category"
-                                className="w-full bg-zinc-200"
+                                className="w-full bg-zinc-200 py-1 rounded-sm shadow-sm shadow-zinc-500"
                                 onChange={handleProdInput}
                                 value={prodData.category}
                             >
@@ -117,30 +130,34 @@ function NewProduct() {
                                 })}
                             </select>
                         </div>
-                        <div className="flex items-center justify-between m-auto">
+                        <div className="flex items-center justify-between ">
                             <label
                                 htmlFor="addCategory"
-                                className="pl-2 font-bold mr-2"
+                                className="pl-2 font-bold mr-2 hidden sm:flex"
                             >
                                 Add Category
                             </label>
-                            <input
-                                type="text"
-                                id="addCategory"
-                                name="addCategory"
-                                placeholder="Add Category"
-                                className="w-[120px] h-10 bg-zinc-200 rounded-sm px-2 shadow-sm shadow-zinc-500 mb-2"
-                                value={newCategory}
-                                onChange={(e) => setNewCategory(e.target.value)}
-                            />
-                            <button
-                                type="button"
-                                onClick={handleAddCategory}
-                                className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
-            shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
-                            >
-                                Add
-                            </button>
+                            <div className=" mt-1">
+                                <input
+                                    type="text"
+                                    id="addCategory"
+                                    name="addCategory"
+                                    placeholder="Add Category"
+                                    className="w-[190px] sm:w-[120px] h-[40px] bg-zinc-200 rounded-s-md px-2 shadow-sm shadow-zinc-500 mb-0 sm:mb-2"
+                                    value={newCategory}
+                                    onChange={(e) =>
+                                        setNewCategory(e.target.value)
+                                    }
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleAddCategory}
+                                    className="bg-zinc-200 text-black py-2 px-4 rounded-e-md font-bold
+                                     shadow-sm shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                                >
+                                    Add
+                                </button>
+                            </div>
                         </div>
                         <div>
                             <label htmlFor="image" className="pl-2 font-bold">
@@ -148,7 +165,9 @@ function NewProduct() {
                                 {/* <label htmlFor="uploadImage"> */}
                                 <div
                                     // id="image"
-                                    className="bg-zinc-200 w-full h-20 text-5xl flex justify-center items-center rounded-md cursor-pointer hover:text-zinc-700 active:text-black"
+                                    className="bg-zinc-200 w-full h-20 text-5xl flex justify-center items-center 
+                                    rounded-md cursor-pointer hover:text-zinc-700 active:text-black
+                                     shadow-sm shadow-zinc-500"
                                 >
                                     {prodData.image ? (
                                         <img

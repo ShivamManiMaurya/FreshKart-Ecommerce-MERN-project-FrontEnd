@@ -152,7 +152,7 @@ function Header() {
                     {/*--------------------------- User Button Icon and Image Logic -------------------  */}
                     <div className="text-white" onClick={handleUserClick}>
                         <div className="">
-                            <div className="hover:text-red-700 w-8 h-8 lg:w-10 lg:h-10 cursor-pointer transition-all ml-2 mt-[6px] lg:mt-0">
+                            <div className="hover:text-red-700 w-8 h-8 lg:w-10 lg:h-10 cursor-pointer transition-all ml-2 mr-1 mt-[2px] lg:mt-0">
                                 {profileImage ? (
                                     <img
                                         src={profileImage}

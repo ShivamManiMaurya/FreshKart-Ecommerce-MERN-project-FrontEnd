@@ -72,8 +72,8 @@ function Signup() {
     };
 
     return (
-        <div className="flex h-full justify-center items-center">
-            <div className=" pt-3 w-full max-w-sm bg-white rounded-sm shadow-sm shadow-zinc-500">
+        <div className="flex mt-10 pb-10 md:pb-4 justify-center items-center ">
+            <div className=" pt-3 w-[320px] sm:w-full max-w-sm bg-white rounded-sm shadow-sm shadow-zinc-500">
                 <div className="w-[100px] pb-0 m-auto">
                     <img
                         src={loginGifAnimation}
