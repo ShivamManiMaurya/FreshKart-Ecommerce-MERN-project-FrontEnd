@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
-import { FcNext, FcPrevious } from "react-icons/fc";
 import ProductCard from "./ProductCard";
+import { BsFillBasket2Fill } from "react-icons/bs";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { ImSpinner10 } from "react-icons/im";
 
 const ProductByCategory = ({ category, status, products }) => {
     const categoryWiseProduct = products.filter(
@@ -20,12 +22,15 @@ const ProductByCategory = ({ category, status, products }) => {
     };
 
     return (
-        <div>
-            <h4 className=" text-2xl font-bold p-4 ">{categoryName}</h4>
+        <div className="">
+            <h4 className=" flex items-center gap-2 text-2xl font-bold p-4 underline decoration-red-700 ">
+                <BsFillBasket2Fill className=" text-red-700" />
+                {categoryName}
+            </h4>
             <div className="flex overflow-y-hidden overflow-x-scroll scrollbar-none gap-4 p-4 pt-0">
                 {status === "loading" ? (
-                    <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-                        {status}...
+                    <h1 className="flex items-center justify-center m-auto h-full font-bold text-5xl animate-spin">
+                        <ImSpinner10 />
                     </h1>
                 ) : (
                     <div
@@ -33,18 +38,18 @@ const ProductByCategory = ({ category, status, products }) => {
                         ref={next}
                     >
                         <button
-                            className=" absolute right-0 text-8xl opacity-40 mt-[85px] hover:opacity-70 
+                            className=" absolute right-0 z-20 text-7xl md:text-9xl opacity-40 mt-[85px] hover:opacity-70 
                             transition-all  active:opacity-40"
                             onClick={() => handleRightClick()}
                         >
-                            <FcNext />
+                            <MdNavigateNext className=" text-red-700" />
                         </button>
                         <button
-                            className=" absolute left-0 text-8xl opacity-40 mt-[85px] hover:opacity-70
+                            className=" absolute left-0 z-20 text-7xl md:text-9xl opacity-40 mt-[85px] hover:opacity-70
                              transition-all active:opacity-40"
                             onClick={() => handleLeftClick()}
                         >
-                            <FcPrevious />
+                            <MdNavigateBefore className=" text-red-700" />
                         </button>
                         {categoryWiseProduct?.map((product, index) => {
                             return (

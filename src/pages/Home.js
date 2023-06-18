@@ -4,6 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProduct } from "../redux/productSlice";
 import ProductCard from "../components/ProductCard";
 import ProductByCategory from "../components/ProductByCategory";
+import { ImSpinner10 } from "react-icons/im";
+import { FaFilter } from "react-icons/fa";
+import { MdDoubleArrow } from "react-icons/md";
+import { BiCategoryAlt } from "react-icons/bi";
 
 function Home() {
     const dispatch = useDispatch();
@@ -57,7 +61,7 @@ function Home() {
 
     if (status === "error") {
         return (
-            <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+            <h1 className="flex items-center justify-center h-full font-bold text-5xl ">
                 Error...!
             </h1>
         );
@@ -66,20 +70,20 @@ function Home() {
     return (
         <>
             {/*-------------------------- top screen Home page heading and top products div -------------------- */}
-            <div className="flex items-start justify-left gap-4 h-full bg-white">
+            <div className="lg:flex items-start justify-left gap-4 h-full bg-white">
                 {/*-------------------------------------- Home page Heading --------------------------------------- */}
-                <div className=" w-1/2 bg-lime-900 text-yellow-500 flex items-center justify-center h-full ">
+                <div className=" lg:w-1/2 bg-lime-900 text-yellow-500 flex items-center justify-center h-full ">
                     <div
-                        className="w-[550px] border-[6px]
-                         border-yellow-500 p-4"
+                        className="w-auto border-[6px]
+                         border-yellow-500 p-4 mx-20"
                     >
                         <div className="">
-                            <h1 className=" text-7xl font-bold mb-4 ">
+                            <h1 className="text-6xl md:text-7xl font-bold mb-4 ">
                                 Fresh and Fast delivery at your Doorstep
                             </h1>
                         </div>
                         <div>
-                            <p>
+                            <p className="hidden xl:flex">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Vel soluta ut nobis, quod,
                                 nesciunt at sint voluptate pariatur fuga,
@@ -89,6 +93,13 @@ function Home() {
                                 provident ut aliquam maxime nostrum, modi,
                                 officia excepturi? Fuga quibusdam provident
                                 labore voluptas.
+                            </p>
+                            <p className="xl:hidden 2xl:flex">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Vel soluta ut nobis, quod,
+                                nesciunt at sint voluptate pariatur fuga,
+                                recusandae Lorem ipsum dolor sit amet
+                                consectetur adipisicing elit...
                             </p>
                         </div>
                         <div className="flex items-center justify-center pt-4 ">
@@ -104,13 +115,13 @@ function Home() {
 
                 {/*----------------------------------------- top products -------------------------------------- */}
                 {status === "loading" ? (
-                    <div>
-                        <h1 className="flex items-center justify-center h-full font-bold text-5xl">
-                            {status}...
+                    <div className="hidden md:flex items-center justify-center lg:w-1/2 h-[700px]">
+                        <h1 className=" flex items-center justify-center h-full font-bold text-5xl animate-spin">
+                            <ImSpinner10 className=" text-black" />
                         </h1>
                     </div>
                 ) : (
-                    <div className="w-1/2 flex item-start justify-center gap-4 h-full flex-wrap p-10">
+                    <div className="hidden lg:w-1/2 md:flex item-start justify-center gap-4 h-fit flex-wrap p-10">
                         {topProducts?.map((product, index) => {
                             return (
                                 <ProductCard
@@ -129,17 +140,19 @@ function Home() {
 
             {/*------------------------------------ Categories wise products ------------------------------ */}
 
-            <ProductByCategory
-                category={"vegitables"}
-                status={status}
-                products={products}
-            />
+            <div className=" md:mt-[700px] lg:mt-0">
+                <ProductByCategory
+                    category={"vegitables"}
+                    status={status}
+                    products={products}
+                />
 
-            <ProductByCategory
-                category={"fruits"}
-                status={status}
-                products={products}
-            />
+                <ProductByCategory
+                    category={"fruits"}
+                    status={status}
+                    products={products}
+                />
+            </div>
 
             {/*-------------------------------------- filters --------------------------------- */}
             {status === "loading" ? (
@@ -149,17 +162,20 @@ function Home() {
             ) : (
                 <>
                     <button
-                        className="bg-green-400 active:bg-green-600"
+                        className="flex items-center justify-center gap-2 text-2xl font-bold p-4 underline decoration-red-700 "
                         onClick={handleFilters}
                     >
+                        <FaFilter className="text-red-700" />
                         Filters
+                        <MdDoubleArrow className=" text-red-700 text-4xl mt-1" />
                     </button>
                     {showFilters && (
-                        <div className="">
-                            <div className=" font-bold text-2xl p-4">
+                        <div className=" ">
+                            <div className="flex items-center gap-2 font-bold text-2xl p-4 underline decoration-red-700">
+                                <BiCategoryAlt className="tex-red-700" />
                                 <h1>Categories</h1>
                             </div>
-                            <div className="text-2xl p-4 flex">
+                            <div className="text-2xl p-4 flex overflow-y-hidden overflow-x-scroll scrollbar-none">
                                 <button
                                     className={`${
                                         !active && "bg-green-700"

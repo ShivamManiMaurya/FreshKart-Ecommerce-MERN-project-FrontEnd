@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../redux/productSlice";
@@ -20,7 +20,7 @@ const ProductCard = ({ id, image, name, price, category }) => {
 
     return (
         <div className=" ">
-            <div className="bg-zinc-400 w-60 border-4 border-zinc-600 h-full p-3">
+            <div className=" w-60 lg:w-[200px] xl:w-60 2xl:w-80 rounded-md shadow-md md:shadow-none hover:md:shadow-md  h-fit pb-4 hover:scale-105 ">
                 <Link
                     to={`/productdetails/${id}`}
                     onClick={() =>
@@ -32,18 +32,26 @@ const ProductCard = ({ id, image, name, price, category }) => {
                         alt=""
                         className="h-[150px] w-full object-cover"
                     />
-                    <h1>{name}</h1>
+                    <h1 className="px-4 font-bold mt-2">{name}</h1>
                 </Link>
-                <h4>₹{price}</h4>
-                <p>{category}</p>
+                <h4 className="px-4 text-lg">
+                    <span className="text-red-700 font-bold pr-1">₹</span>
+                    {price}
+                </h4>
+                <p className="px-4 text-sm">
+                    <spna className="font-bold">Category:</spna> {category}
+                </p>
 
-                <button
-                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
+                <div className="mx-3 ">
+                    {" "}
+                    <button
+                        className="bg-black w-full text-white py-2 px-4 mt-2 rounded-md font-bold flex items-center justify-center 
                     m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
-                    onClick={handleAddToCart}
-                >
-                    Add Cart
-                </button>
+                        onClick={handleAddToCart}
+                    >
+                        Add Cart
+                    </button>
+                </div>
             </div>
         </div>
     );
