@@ -36,6 +36,7 @@ module.exports = {
                         transform: "scaleY(0.4)",
                         transformOrigin: "100% 0%",
                         opacity: "1",
+                        display: "hidden",
                     },
                 },
 

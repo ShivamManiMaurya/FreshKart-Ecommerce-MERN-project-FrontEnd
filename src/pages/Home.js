@@ -167,7 +167,7 @@ function Home() {
 
             {/*-------------------------------------- filters --------------------------------- */}
             {status === "loading" ? (
-                <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+                <h1 className="flex items-center justify-center h-full font-bold text-5xl animate-spin">
                     <ImSpinner10 className=" text-black" />
                 </h1>
             ) : (
@@ -187,7 +187,7 @@ function Home() {
                                 <h1>Categories</h1>
                             </div>
                             <div
-                                className="text-2xl p-4 m-4 flex items-center md:justify-center overflow-y-hidden 
+                                className="text-2xl p-4 m-4 flex items-center lg:justify-center overflow-y-hidden 
                                     overflow-x-scroll scrollbar-none scroll-smooth transition-all"
                                 ref={next}
                             >
@@ -268,7 +268,7 @@ function Home() {
                 Products
             </h4>
             {status === "loading" ? (
-                <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+                <h1 className="flex items-center justify-center h-full font-bold text-5xl animate-spin">
                     <ImSpinner10 className=" text-black" />
                 </h1>
             ) : (

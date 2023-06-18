@@ -13,6 +13,7 @@ function Header() {
     const dispatch = useDispatch();
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showAfterRefresh, setShowAfterRefresh] = useState(false);
+    const [showToggleAfterRefresh, setShowToggleAfterRefresh] = useState(false);
     const [cartValue, setCartValue] = useState(0);
     const [showMenu, setShowMenu] = useState(false);
 
@@ -35,7 +36,7 @@ function Header() {
 
     const handleToggle = () => {
         setShowMenu((prev) => !prev);
-        setShowAfterRefresh(true);
+        setShowToggleAfterRefresh(true);
     };
 
     return (
@@ -97,9 +98,9 @@ function Header() {
                             </Link>
                         </nav>
                     ) : (
-                        showAfterRefresh && (
+                        showToggleAfterRefresh && (
                             <nav
-                                className=" animate-scaleDown opacity-0 bg-black text-white absolute top-[73px] left-0 p-4 w-full  
+                                className=" animate-scaleDown md:animate-none md:hidden opacity-0 bg-black text-white absolute top-[73px] left-0 p-4 w-full  
                         flex flex-col gap-3 font-bold mr-0 "
                             >
                                 <div>Home</div>
@@ -141,7 +142,7 @@ function Header() {
                                 className={`${
                                     quantity > 0 ? "animate-bounce" : ""
                                 } transition-all absolute top-4 lg:top-3 right-[96px] md:right-[60px] lg:right-[128px]
-                                 bg-orange-600 rounded-full px-1 text-xs lg:text-sm text-white border text-center`}
+                                 bg-red-700 rounded-full px-1 text-xs lg:text-sm text-white border-2 text-center font-bold`}
                             >
                                 {quantity}
                             </div>

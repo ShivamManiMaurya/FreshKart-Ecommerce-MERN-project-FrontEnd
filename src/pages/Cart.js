@@ -10,6 +10,7 @@ import { AiFillMinusSquare } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 import { Link, useNavigate } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
 
 function Cart() {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function Cart() {
     }, 0);
 
     const handleRemove = (id) => {
-        console.log(id);
+        // console.log(id);
         dispatch(removeFromCart(id));
     };
 
@@ -42,7 +43,7 @@ function Cart() {
         dispatch(decreaseItem(id));
     };
 
-    console.log(cartData);
+    // console.log(cartData);
     const handlePayment = async () => {
         if (email) {
             // const stripePromise = await loadStripe(
@@ -59,7 +60,7 @@ function Cart() {
             // stripePromise.redirectToCheckout({ sessionId: dataRes });
             // *********************************************************************************************
             const stripePromise = await loadStripe(
-                process.env.REACT_APP_STRIPE_PUBLIC_KEY
+                process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
             );
             const res = await fetch(
                 `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
@@ -74,7 +75,7 @@ function Cart() {
             if (res.statusCode === 500) return;
 
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
 
             toast("Redirect to payment Gateway...!");
             stripePromise.redirectToCheckout({ sessionId: data });
@@ -96,80 +97,129 @@ function Cart() {
     }
 
     return (
-        <div>
-            {cartData?.map((product, index) => {
-                return (
-                    <div key={product?.id} className="flex gap-2 p-2">
-                        <div className="w-[150px] h-[150px]">
-                            <img src={product?.image} alt="Product" />
-                        </div>
-                        <div>
-                            <div className=" flex justify-between items-center">
-                                <h4>{product?.name}</h4>
-                                <div className="flex gap-2 text-2xl p-2">
+        <div className="bg-white h-fit md:h-full flex flex-col md:flex-row items-start pt-10 justify-center gap-2 lg:gap-4 px-2 md:px-4">
+            <div>
+                <div className=" text-4xl font-bold flex items-center gap-2 justify-center pb-8 underline decoration-red-700">
+                    <FaShoppingCart className=" text-red-700 mt-2" />
+                    <h2>Cart</h2>
+                </div>
+                {cartData?.map((product, index) => {
+                    return (
+                        <div
+                            key={product?.id}
+                            className="flex border-b-2 py-2 "
+                        >
+                            <div className="w-[150px] h-[110px] flex items-center justify-center">
+                                <img
+                                    src={product?.image}
+                                    alt="Product"
+                                    className=" w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="  px-4 w-[320px] sm:w-[350px] lg:w-auto">
+                                <div className=" flex justify-between items-center ">
+                                    <h4 className=" text-lg font-bold">
+                                        {product?.name}
+                                    </h4>
+                                    <div className="flex text-4xl py-2 ">
+                                        <button
+                                            className=" hover:opacity-70 active:opacity-50 "
+                                            onClick={() =>
+                                                handleIncrease(product?.id)
+                                            }
+                                        >
+                                            <AiFillPlusSquare />
+                                        </button>
+                                        <h6 className="text-lg flex items-center justify-center w-10">
+                                            {product.qty}
+                                        </h6>
+                                        <button
+                                            className=" hover:opacity-70 active:opacity-50"
+                                            onClick={() =>
+                                                handleDecrease(
+                                                    product?.id,
+                                                    product.qty
+                                                )
+                                            }
+                                        >
+                                            <AiFillMinusSquare />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="flex justify-between gap-4 font-bold -mt-2">
+                                    {" "}
+                                    <div>
+                                        <h6 className="">
+                                            Price:{" "}
+                                            <span className="text-red-700">
+                                                ₹{" "}
+                                            </span>
+                                            {product.price.toFixed(2)}
+                                        </h6>
+                                    </div>
+                                    <div>
+                                        <h6>
+                                            Category:{" "}
+                                            <span className=" font-normal">
+                                                {product?.category}
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between mt-1">
                                     <button
-                                        className=" hover:opacity-70 active:text-[25px] active:p-0"
+                                        className="bg-black text-white py-1 px-2 rounded-md font-bold 
+                                    shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
                                         onClick={() =>
-                                            handleIncrease(product?.id)
+                                            handleRemove(product?.id)
                                         }
                                     >
-                                        <AiFillPlusSquare />
+                                        Remove
                                     </button>
-                                    <button
-                                        className=" hover:opacity-70 active:text-[25px] active:p-0"
-                                        onClick={() =>
-                                            handleDecrease(
-                                                product?.id,
-                                                product.qty
-                                            )
-                                        }
-                                    >
-                                        <AiFillMinusSquare />
-                                    </button>
+                                    <h6 className="font-bold ">
+                                        Total:{" "}
+                                        <span className="text-red-700">₹ </span>{" "}
+                                        <span className=" text-blue-700">
+                                            {product.total.toFixed(2)}
+                                        </span>
+                                    </h6>
                                 </div>
-                            </div>
-                            <div className="flex gap-4">
-                                {" "}
-                                <div>
-                                    <h6>Price: {product.price}</h6>
-                                </div>
-                                <div>
-                                    <h6>Total: {product.total}</h6>
-                                    <h6>Category: {product?.category}</h6>
-                                </div>
-                                <h6>Quantity: {product.qty}</h6>
-                            </div>
-                            <p className="w-[400px]">
-                                {/* {product?.discription.slice(0, 80)}... */}
-                            </p>
-                            <div className="flex">
-                                <button
-                                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
-                                    m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
-                                    onClick={() => handleRemove(product?.id)}
-                                >
-                                    Remove
-                                </button>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
-            <div className="flex gap-2">
-                Subtotal ({totalQuantity} items): {subtotal}{" "}
+                    );
+                })}
+                <div className="flex justify-end gap-2 pr-4 font-bold pt-2 mb-10">
+                    Subtotal ({totalQuantity} items):{" "}
+                    <span className="text-red-700">₹ </span>{" "}
+                    <span className="text-blue-700">{subtotal.toFixed(2)}</span>{" "}
+                </div>
+            </div>
+            <div className="w-[460px] md:w-[300px] pt-4 md:mt-[76px] flex flex-col justify-center">
+                <h4 className=" text-xl font-bold text-zinc-500 border-b-2 pb-2 px-2">
+                    PRICE DETAILS
+                </h4>
+                <div className="flex justify-between text-lg pt-2 px-2">
+                    <h6>Total Quantity</h6>
+                    <h6>{totalQuantity}</h6>
+                </div>
+                <div className="flex justify-between text-lg border-b-2 pb-2 px-2">
+                    <h6>Delivery Fee</h6>
+                    <h6>Free</h6>
+                </div>
+                <div className="flex justify-between text-xl py-2 px-2">
+                    <h4 className=" font-bold">Total Amount</h4>
+                    <h4 className=" font-bold text-blue-700">
+                        <span className="text-red-700">₹ </span>
+                        {subtotal.toFixed(2)}
+                    </h4>
+                </div>
                 <button
-                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center 
-                                    m-auto shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                    className="bg-black text-white py-2 px-4 w-full rounded-md font-bold 
+                                    shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none mb-10"
                     onClick={handlePayment}
                 >
-                    Payment
+                    PLACE ORDER
                 </button>
-                <Link
-                    to="/stripe-checkout/"
-                    className=" font-bold bg-red-500 active:bg-red-700 hover:bg-red-600"
-                >
-                    TotalPay
-                </Link>
             </div>
         </div>
     );

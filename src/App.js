@@ -9,7 +9,7 @@ function App() {
             <Toaster />
             <div className="App">
                 <Header />
-                <main className=" pt-[70px] bg-zinc-200 h-screen">
+                <main className=" pt-[70px] h-screen">
                     <Outlet />
                 </main>
             </div>
