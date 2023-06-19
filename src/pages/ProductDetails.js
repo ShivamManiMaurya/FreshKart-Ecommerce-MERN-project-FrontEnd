@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart, fetchProduct } from "../redux/productSlice";
 import ProductByCategory from "../components/ProductByCategory";
+import { deleteProduct } from "../api";
+import toast from "react-hot-toast";
 
 function ProductDetails() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { filterid } = useParams();
 
+    const { email } = useSelector((state) => state.user);
     const { data: products, status } = useSelector((state) => state.product);
     const product = products.filter((product) => product._id === filterid)[0];
 
@@ -39,6 +42,12 @@ function ProductDetails() {
         navigate("/cart");
     };
 
+    const handleProdDelete = () => {
+        deleteProduct(product?._id);
+        toast("Product deleted successfully.");
+        navigate("/");
+    };
+
     return (
         <>
             {!product?.image ? (
@@ -67,6 +76,15 @@ function ProductDetails() {
                                 >
                                     Add Cart
                                 </button>
+                                {email === process.env.REACT_APP_ADMIN && (
+                                    <button
+                                        className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
+                                 shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
+                                        onClick={handleProdDelete}
+                                    >
+                                        Delete Product
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
