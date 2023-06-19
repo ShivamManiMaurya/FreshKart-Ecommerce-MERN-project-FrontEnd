@@ -9,6 +9,7 @@ import { MdDoubleArrow } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
 import { BsFillBasket2Fill } from "react-icons/bs";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { Link } from "react-scroll";
 
 function Home() {
     const dispatch = useDispatch();
@@ -114,12 +115,18 @@ function Home() {
                             </p>
                         </div>
                         <div className="flex items-center justify-center pt-4 ">
-                            <button
+                            <Link
                                 className="border-[6px] border-yellow-500 px-5 py-3 hover:bg-yellow-500
-                                 hover:text-lime-900 font-bold active:opacity-90"
+                                 hover:text-lime-900 font-bold active:opacity-90 cursor-pointer"
+                                to={"all-products"}
+                                offset={-140}
+                                smooth={true}
+                                duration={500}
+                                spy={true}
+                                activeClass="active"
                             >
                                 Order Now
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -215,8 +222,10 @@ function Home() {
                                         <div className="w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden">
                                             <ImSpoonKnife
                                                 className={`${
-                                                    !active && " text-black"
-                                                } text-red-700 "`}
+                                                    !active
+                                                        ? "text-black "
+                                                        : " text-red-700"
+                                                }`}
                                             />
                                         </div>
                                     </button>
@@ -243,10 +252,10 @@ function Home() {
                                                 >
                                                     <ImSpoonKnife
                                                         className={`${
-                                                            active ===
-                                                                category &&
-                                                            " text-black"
-                                                        } text-red-700 "`}
+                                                            active === category
+                                                                ? "text-black "
+                                                                : " text-red-700"
+                                                        }`}
                                                     />
                                                 </div>
                                             </button>
@@ -272,7 +281,10 @@ function Home() {
                     <ImSpinner10 className=" text-black" />
                 </h1>
             ) : (
-                <div className=" flex flex-wrap gap-4 items-center justify-center">
+                <div
+                    className=" flex flex-wrap gap-4 items-center justify-center"
+                    id="all-products"
+                >
                     {fitlteredProd.map((product, index) => {
                         return (
                             <ProductCard

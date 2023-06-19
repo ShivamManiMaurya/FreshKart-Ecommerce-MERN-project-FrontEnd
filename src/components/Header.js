@@ -6,8 +6,8 @@ import { FaUser } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUser } from "../redux/userSlice";
 import { toast } from "react-hot-toast";
-import { BiSearchAlt } from "react-icons/bi";
 import { ImMenu } from "react-icons/im";
+import { Link as ScrollLink } from "react-scroll";
 
 function Header() {
     const dispatch = useDispatch();
@@ -90,12 +90,17 @@ function Header() {
                             >
                                 About
                             </Link>
-                            <Link
-                                to={"contact"}
+                            <ScrollLink
+                                to={"footer"}
                                 className="hover:text-red-700 transition-all"
+                                offset={-140}
+                                smooth={true}
+                                duration={500}
+                                spy={true}
+                                activeClass="active"
                             >
                                 Contact
-                            </Link>
+                            </ScrollLink>
                         </nav>
                     ) : (
                         showToggleAfterRefresh && (
@@ -126,12 +131,17 @@ function Header() {
                         >
                             About
                         </Link>
-                        <Link
-                            to={"contact"}
+                        <ScrollLink
+                            to={"footer"}
                             className="hover:text-red-700 transition-all"
+                            offset={-140}
+                            smooth={true}
+                            duration={500}
+                            spy={true}
+                            activeClass="active"
                         >
                             Contact
-                        </Link>
+                        </ScrollLink>
                     </nav>
 
                     {/* -------------------------------- Cart button icon----------------------------------------  */}
@@ -142,7 +152,7 @@ function Header() {
                                 className={`${
                                     quantity > 0 ? "animate-bounce" : ""
                                 } transition-all absolute top-4 lg:top-3 right-[96px] md:right-[60px] lg:right-[128px]
-                                 bg-red-700 rounded-full px-1 text-xs lg:text-sm text-white border-2 text-center font-bold`}
+                                 bg-red-600 rounded-full px-1 text-xs lg:text-sm text-white border-2 text-center font-bold`}
                             >
                                 {quantity}
                             </div>
@@ -160,7 +170,7 @@ function Header() {
                                         className="w-full h-full overflow-hidden rounded-full"
                                     ></img>
                                 ) : (
-                                    <FaUser className="w-fit text-2xl lg:text-4xl" />
+                                    <FaUser className="w-fit text-2xl lg:text-4xl ml-1 md:ml-0" />
                                 )}
                             </div>
                             {showUserMenu ? (
@@ -208,7 +218,7 @@ function Header() {
                     </div>
 
                     {/*------------------------------------- Mobile view toggle button -------------------------------------- */}
-                    <div className="text-white text-2xl mt-[6px] md:hidden active:text-red-700 hover:text-red-700">
+                    <div className="text-white text-2xl mt-[2px] md:hidden active:text-red-700 hover:text-red-700">
                         <button onClick={handleToggle}>
                             <ImMenu />
                         </button>

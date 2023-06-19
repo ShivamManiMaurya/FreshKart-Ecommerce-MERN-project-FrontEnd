@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 // import StripeCheckout from "./pages/StripeCheckout";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
     {
@@ -27,8 +28,8 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: "contact",
-                element: <Contact />,
+                // path: "footer",
+                // element: <Footer />,
             },
             {
                 path: "about",
