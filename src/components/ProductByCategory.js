@@ -4,10 +4,12 @@ import { BsFillBasket2Fill } from "react-icons/bs";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { ImSpinner10 } from "react-icons/im";
 
-const ProductByCategory = ({ category, status, products }) => {
+const ProductByCategory = ({ category, status, products, id }) => {
     const categoryWiseProduct = products.filter(
         (product) => product.category.toLowerCase() === category.toLowerCase()
     );
+
+    const prods = categoryWiseProduct.filter((prod) => prod._id !== id);
 
     const categoryName = category[0].toUpperCase() + category.slice(1);
 
@@ -51,19 +53,33 @@ const ProductByCategory = ({ category, status, products }) => {
                         >
                             <MdNavigateBefore className=" text-red-700" />
                         </button>
-                        {categoryWiseProduct?.map((product, index) => {
-                            return (
-                                <ProductCard
-                                    key={product._id}
-                                    id={product._id}
-                                    name={product.name}
-                                    image={product.image}
-                                    price={product.price}
-                                    discription={product.discription}
-                                    category={product.category}
-                                />
-                            );
-                        })}
+                        {id === undefined || id === null
+                            ? categoryWiseProduct?.map((product, index) => {
+                                  return (
+                                      <ProductCard
+                                          key={product._id}
+                                          id={product._id}
+                                          name={product.name}
+                                          image={product.image}
+                                          price={product.price}
+                                          discription={product.discription}
+                                          category={product.category}
+                                      />
+                                  );
+                              })
+                            : prods?.map((product, index) => {
+                                  return (
+                                      <ProductCard
+                                          key={product._id}
+                                          id={product._id}
+                                          name={product.name}
+                                          image={product.image}
+                                          price={product.price}
+                                          discription={product.discription}
+                                          category={product.category}
+                                      />
+                                  );
+                              })}
                     </div>
                 )}
             </div>

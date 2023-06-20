@@ -92,7 +92,8 @@ function ProductDetails() {
                         Similar Category Products
                     </h1>
                     <ProductByCategory
-                        category={product.category}
+                        category={product?.category}
+                        id={product?._id}
                         status={status}
                         products={products}
                     />
