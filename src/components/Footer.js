@@ -20,7 +20,7 @@ import { ImLocation } from "react-icons/im";
 const Footer = () => {
     return (
         <div
-            className="bg-black text-white min-w-[480px] sm:w-full mt-10 "
+            className="bg-black text-white w-screen xl:w-full mt-10 "
             id="footer"
         >
             <div className=" flex items-start justify-evenly md:gap-2 lg:gap-4 py-10 lg:px-10">

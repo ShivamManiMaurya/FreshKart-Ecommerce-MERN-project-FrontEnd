@@ -40,7 +40,7 @@ function Header() {
     };
 
     return (
-        <header className=" fixed shadow-md shadow-zinc-700 w-full :h-[70px] bg-black px-4 lg:px-16 z-50">
+        <header className=" fixed shadow-md shadow-zinc-900 w-screen h-[70px] bg-black px-4 lg:px-16 z-50">
             {/*---------------------------------- div that wraps all ------------------------------------- */}
             <div className="flex items-center justify-between">
                 {/*------------------------------------- FreshKart Logo and Link ------------------------------ */}
@@ -78,6 +78,7 @@ function Header() {
 
                     {/*--------------------------------- All menu links --------------------------------*/}
 
+                    {/************************** mobile screen links ********************************/}
                     {showMenu ? (
                         <nav
                             className={`${
@@ -112,7 +113,7 @@ function Header() {
                             </Link>
                             <ScrollLink
                                 to={"footer"}
-                                className="hover:text-red-700 transition-all"
+                                className="hover:text-red-700 transition-all cursor-pointer"
                                 offset={-140}
                                 smooth={true}
                                 duration={500}
@@ -135,6 +136,7 @@ function Header() {
                         )
                     )}
 
+                    {/************************** medium and large screen links ********************************/}
                     <nav
                         className={` hidden text-white md:top-[73px] md:p-0 bg-black w-full  
                         md:flex md:flex-row md:gap-3 lg:gap-6 lg:text-lg font-bold md:mr-0 lg:mr-2`}
@@ -165,7 +167,7 @@ function Header() {
                         </Link>
                         <ScrollLink
                             to={"footer"}
-                            className="hover:text-red-700 transition-all"
+                            className="hover:text-red-700 transition-all cursor-pointer"
                             offset={-140}
                             smooth={true}
                             duration={500}

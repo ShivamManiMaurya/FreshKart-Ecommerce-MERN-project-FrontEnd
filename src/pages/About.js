@@ -6,15 +6,15 @@ import newsroom from "../assets/images/logo/newsroom.jpg";
 
 function About() {
     return (
-        <div>
+        <div className=" w-screen xl:w-auto">
             <div className=" bg-black h-screen text-red-700 flex flex-col items-center justify-center pb-10 px-4">
                 <img src={logo} alt="freshkart logo" />
-                <h1 className=" text-5xl font-bold w-[600px] text-center py-4 ml-4">
+                <h1 className=" text-5xl font-bold sm:w-[600px] text-center py-4 ml-4">
                     <span className="text-6xl ">Fast</span> and{" "}
                     <span className=" text-6xl ">Fresh</span> Delivery at your
                     <span className=" text-6xl "> Doorstep...</span>
                 </h1>
-                <p className=" text-lg w-[700px] text-center py-4">
+                <p className=" text-lg sm:w-[700px] text-center py-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Odio, consequatur? Ipsum blanditiis beatae sapiente veniam?
                     In similique iure tempore quod. Lorem ipsum dolor sit amet
@@ -23,22 +23,22 @@ function About() {
                     blanditiis! Inventore!
                 </p>
             </div>
-            <div className="flex pt-10 px-10 gap-3 items-center justify-center">
-                <div className=" w-[57%] h-[400px] border-2">
+            <div className="flex flex-col sm:flex-row pt-10 px-10 gap-3 items-center justify-center">
+                <div className=" w-full sm:w-[47%]  xl:w-[57%] sm:h-auto xl:h-[400px] border-2">
                     <img
                         src={delivery}
                         alt="Delivery"
                         className=" w-full h-full object-cover"
                     />
                 </div>
-                <div className=" w-[40%] px-10 py-8">
-                    <h4 className=" text-2xl text-zinc-600">
+                <div className=" w-full sm:w-[40%] px-10 py-8">
+                    <h4 className=" text-2xl sm:text-xl xl:text-2xl text-zinc-600">
                         Delivery service at FreshKart
                     </h4>
-                    <h2 className=" text-3xl font-bold py-2">
+                    <h2 className="text-3xl sm:text-xl xl:text-3xl font-bold py-2">
                         Express Delivery by all means.
                     </h2>
-                    <p className=" w-[500px]">
+                    <p className=" sm:text-sm xl:text-base xl:w-[500px]">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Magni facere illo suscipit exercitationem modi quo,
                         necessitatibus reprehenderit fuga, quisquam officia,
@@ -55,13 +55,15 @@ function About() {
                     </p>
                 </div>
             </div>
-            <div className="flex pt-10 px-10 gap-3 items-center justify-center">
-                <div className=" w-[40%] px-10 py-8">
-                    <h4 className=" text-2xl text-zinc-600">
+            <div className="flex flex-col-reverse sm:flex-row pt-10 px-10 gap-3 items-center justify-center">
+                <div className=" sm:w-[40%] px-10 py-8">
+                    <h4 className=" text-2xl sm:text-xl xl:text-2xl text-zinc-600">
                         Technology at FreshKart
                     </h4>
-                    <h2 className=" text-3xl font-bold py-2">Innovation</h2>
-                    <p className=" w-[500px]">
+                    <h2 className=" text-3xl sm:text-xl xl:text-3xl font-bold py-2">
+                        Innovation
+                    </h2>
+                    <p className=" sm:text-sm xl:text-base xl:w-[500px]">
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Sit quod sunt ex vel hic, tempora numquam
                         assumenda libero mollitia voluptas voluptate dignissimos
@@ -74,7 +76,7 @@ function About() {
                         voluptas eum iure autem aspernatur, omnis soluta alias!
                     </p>
                 </div>
-                <div className=" w-[57%] h-[400px] border-2">
+                <div className="w-full sm:w-[47%]  xl:w-[57%] sm:h-auto xl:h-[400px]  border-2">
                     <img
                         src={innovation}
                         alt="innovation"
@@ -82,8 +84,8 @@ function About() {
                     />
                 </div>
             </div>
-            <div className="flex pt-10 px-10 gap-3 items-center justify-center">
-                <div className=" w-[80%] h-[600px] border-2">
+            <div className="flex flex-col sm:flex-row pt-10 px-10 gap-3 items-center justify-center">
+                <div className="w-full sm:w-[60%] xl:w-[80%] sm:h-auto xl:h-[600px] border-2">
                     <img
                         src={newsroom}
                         alt="newsroom"
@@ -92,36 +94,36 @@ function About() {
                 </div>
                 <div>
                     <div className=" px-10">
-                        <h4 className=" text-2xl text-zinc-800 py-2">
+                        <h4 className="text-2xl sm:text-xl xl:text-2xl text-zinc-800 py-2">
                             Lorem, ipsum dolor.
                         </h4>
-                        <p>
+                        <p className=" sm:text-sm xl:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Consequuntur pariatur cupiditate labore.
                         </p>
                         <p className=" text-zinc-400 font-bold text-sm py-2">
                             April 23, 2023
                         </p>
-                        <div className=" pt-8 w-2/3 border-b-2"></div>
+                        <div className=" pt-8 sm:w-2/3 border-b-2"></div>
                     </div>
                     <div className=" px-10 ">
-                        <h4 className=" text-2xl text-zinc-800 py-2">
+                        <h4 className=" text-2xl sm:text-xl xl:text-2xl text-zinc-800 py-2">
                             Lorem, ipsum dolor.
                         </h4>
-                        <p>
+                        <p className=" sm:text-sm xl:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Consequuntur pariatur cupiditate labore.
                         </p>
                         <p className=" text-zinc-400 font-bold text-sm py-2">
                             April 23, 2023
                         </p>
-                        <div className=" pt-8 w-2/3 border-b-2"></div>
+                        <div className=" pt-8 sm:w-2/3 border-b-2"></div>
                     </div>
                     <div className=" px-10 py-8">
-                        <h4 className=" text-2xl text-zinc-800 py-2">
+                        <h4 className=" text-2xl sm:text-xl xl:text-2xl text-zinc-800 py-2">
                             Lorem, ipsum dolor.
                         </h4>
-                        <p>
+                        <p className=" sm:text-sm xl:text-base">
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Consequuntur pariatur cupiditate labore.
                         </p>

@@ -90,7 +90,7 @@ function Cart() {
 
     if (totalQuantity <= 0) {
         return (
-            <div className=" w-[480px] sm:w-auto sm:h-full h-screen  py-10 flex flex-col items-center gap-2 justify-center">
+            <div className=" w-screen sm:w-auto sm:h-full h-screen  py-10 flex flex-col items-center gap-2 justify-center">
                 <div className=" text-4xl font-bold flex items-center gap-2 justify-center  pb-8 underline decoration-red-700">
                     <FaShoppingCart className=" text-red-700 mt-2" />
                     <h2>Cart</h2>
@@ -98,7 +98,7 @@ function Cart() {
                 <div className=" sm:w-[400px] sm:h-[400px]">
                     <img src={empty} alt="" />
                 </div>
-                <h4 className="text-4xl font-bold text-red-700 pt-8">
+                <h4 className="text-4xl font-bold text-red-700 pt-8 text-center">
                     Your Cart is Empty...!
                 </h4>
             </div>
@@ -125,7 +125,7 @@ function Cart() {
                                     className=" w-full h-full object-cover"
                                 />
                             </div>
-                            <div className="  px-4 w-[320px] sm:w-[350px] lg:w-auto">
+                            <div className="  px-4 w-[320px] sm:w-[350px] lg:w-full">
                                 <div className=" flex justify-between items-center ">
                                     <h4 className=" text-lg font-bold">
                                         {product?.name}

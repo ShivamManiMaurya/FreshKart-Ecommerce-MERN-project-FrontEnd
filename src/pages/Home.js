@@ -81,14 +81,14 @@ function Home() {
     }
 
     return (
-        <>
+        <div className=" w-full">
             {/*-------------------------- top screen Home page heading and top products div -------------------- */}
-            <div className="lg:flex items-start justify-left gap-4 h-full bg-white">
+            <div className=" lg:flex  w-full items-start justify-left gap-4 h-[calc(100vh-4.375rem)] bg-white">
                 {/*-------------------------------------- Home page Heading --------------------------------------- */}
-                <div className=" lg:w-1/2 bg-lime-900 text-yellow-500 flex items-center justify-center h-full ">
+                <div className=" h-full lg:w-1/2 bg-black text-red-700 flex items-center justify-center  ">
                     <div
                         className="w-auto border-[6px]
-                         border-yellow-500 p-4 mx-20"
+                         border-red-700 p-4 mx-10 xl:mx-20"
                     >
                         <div className="">
                             <h1 className="text-6xl md:text-7xl font-bold mb-4 ">
@@ -117,8 +117,8 @@ function Home() {
                         </div>
                         <div className="flex items-center justify-center pt-4 ">
                             <Link
-                                className="border-[6px] border-yellow-500 px-5 py-3 hover:bg-yellow-500
-                                 hover:text-lime-900 font-bold active:opacity-90 cursor-pointer"
+                                className="border-[6px] border-red-700 px-5 py-3 hover:bg-red-700
+                                 hover:text-black font-bold active:opacity-90 cursor-pointer"
                                 to={"all-products"}
                                 offset={-140}
                                 smooth={true}
@@ -203,71 +203,76 @@ function Home() {
                             >
                                 <div className="m-2">
                                     <button
-                                        className=" absolute right-0 z-20 text-7xl md:text-9xl opacity-60 
+                                        className=" hidden sm:flex absolute right-0 z-20 text-7xl md:text-9xl opacity-60 
                                            md:mt-0 mt-[50px]  hover:opacity-70 transition-all  active:opacity-50"
                                         onClick={handleRightClick}
                                     >
                                         <MdNavigateNext className=" text-red-700" />
                                     </button>
                                     <button
-                                        className=" absolute left-0 z-20 text-7xl md:text-9xl opacity-60 md:mt-0 mt-[50px]  hover:opacity-70
+                                        className=" hidden sm:flex absolute left-0 z-20 text-7xl md:text-9xl opacity-60 md:mt-0 mt-[50px]  hover:opacity-70
                                             transition-all active:opacity-50"
                                         onClick={handleLeftClick}
                                     >
                                         <MdNavigateBefore className=" text-red-700" />
                                     </button>
-                                    <button
-                                        className={`${
-                                            !active && "bg-red-700"
-                                        } bg-black active:opacity-80 rounded-full`}
-                                        onClick={handleAllProducts}
-                                    >
-                                        <div className="w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden">
-                                            <ImSpoonKnife
-                                                className={`${
-                                                    !active
-                                                        ? "text-black "
-                                                        : " text-red-700"
-                                                }`}
-                                            />
-                                        </div>
-                                    </button>
-                                    <p className=" text-base text-center underline underline-offset-2 decoration-red-700">
-                                        All
-                                    </p>
+                                    <div className=" mb-[24px] sm:mb-[24px] lg:mb-0">
+                                        <button
+                                            className={`${
+                                                !active && "bg-red-700"
+                                            } bg-black active:opacity-80 rounded-full`}
+                                            onClick={handleAllProducts}
+                                        >
+                                            <div className="w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden">
+                                                <ImSpoonKnife
+                                                    className={`${
+                                                        !active
+                                                            ? "text-black "
+                                                            : " text-red-700"
+                                                    }`}
+                                                />
+                                            </div>
+                                        </button>
+                                        <p className=" text-base text-center underline underline-offset-2 decoration-red-700">
+                                            All
+                                        </p>
+                                    </div>
                                 </div>
-                                {filters?.map((category, index) => {
-                                    return (
-                                        <div className=" m-2 " key={index}>
-                                            <button
-                                                className={`${
-                                                    active === category &&
-                                                    " bg-red-700"
-                                                }  bg-black active:opacity-80 rounded-full`}
-                                                onClick={() =>
-                                                    handleFilterCategory(
-                                                        category
-                                                    )
-                                                }
-                                            >
-                                                <div
-                                                    className={` w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden`}
+                                <div className="flex items-start ">
+                                    {filters?.map((category, index) => {
+                                        return (
+                                            <div className=" m-2 " key={index}>
+                                                <button
+                                                    className={`${
+                                                        active === category &&
+                                                        " bg-red-700"
+                                                    }  bg-black active:opacity-80 rounded-full`}
+                                                    onClick={() =>
+                                                        handleFilterCategory(
+                                                            category
+                                                        )
+                                                    }
                                                 >
-                                                    <ImSpoonKnife
-                                                        className={`${
-                                                            active === category
-                                                                ? "text-black "
-                                                                : " text-red-700"
-                                                        }`}
-                                                    />
-                                                </div>
-                                            </button>
-                                            <p className=" text-base text-center underline underline-offset-2 decoration-red-700">
-                                                {category}
-                                            </p>
-                                        </div>
-                                    );
-                                })}
+                                                    <div
+                                                        className={` w-20 h-20 text-4xl hover:text-5xl flex items-center justify-center overflow-hidden`}
+                                                    >
+                                                        <ImSpoonKnife
+                                                            className={`${
+                                                                active ===
+                                                                category
+                                                                    ? "text-black "
+                                                                    : " text-red-700"
+                                                            }`}
+                                                        />
+                                                    </div>
+                                                </button>
+                                                <p className=" text-base text-center underline underline-offset-2 decoration-red-700">
+                                                    {category}
+                                                </p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     )}
@@ -303,7 +308,7 @@ function Home() {
                     })}
                 </div>
             )}
-        </>
+        </div>
     );
 }
 

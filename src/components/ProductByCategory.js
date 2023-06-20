@@ -41,14 +41,14 @@ const ProductByCategory = ({ category, status, products, id }) => {
                         ref={next}
                     >
                         <button
-                            className=" absolute right-0 z-20 text-7xl md:text-9xl opacity-40 mt-[85px] hover:opacity-70 
+                            className=" hidden sm:flex absolute right-0 z-20 text-7xl md:text-9xl opacity-40 mt-[85px] hover:opacity-70 
                             transition-all  active:opacity-40"
                             onClick={() => handleRightClick()}
                         >
                             <MdNavigateNext className=" text-red-700" />
                         </button>
                         <button
-                            className=" absolute left-0 z-20 text-7xl md:text-9xl opacity-40 mt-[85px] hover:opacity-70
+                            className=" hidden sm:flex absolute left-0 z-20 text-7xl md:text-9xl opacity-40 mt-[85px] hover:opacity-70
                              transition-all active:opacity-40"
                             onClick={() => handleLeftClick()}
                         >
