@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     decreaseItem,
@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import empty from "../assets/images/loader/empty animation.gif";
 
 function Cart() {
     const dispatch = useDispatch();
@@ -89,15 +90,23 @@ function Cart() {
 
     if (totalQuantity <= 0) {
         return (
-            <div>
-                <h2>Cart</h2>
-                <h4>Your FreshKart Cart is Empty</h4>
+            <div className=" w-[480px] sm:w-auto sm:h-full h-screen  py-10 flex flex-col items-center gap-2 justify-center">
+                <div className=" text-4xl font-bold flex items-center gap-2 justify-center  pb-8 underline decoration-red-700">
+                    <FaShoppingCart className=" text-red-700 mt-2" />
+                    <h2>Cart</h2>
+                </div>
+                <div className=" sm:w-[400px] sm:h-[400px]">
+                    <img src={empty} alt="" />
+                </div>
+                <h4 className="text-4xl font-bold text-red-700 pt-8">
+                    Your Cart is Empty...!
+                </h4>
             </div>
         );
     }
 
     return (
-        <div className="bg-white h-fit md:h-full flex flex-col md:flex-row items-start pt-10 justify-center gap-2 lg:gap-4 px-2 md:px-4">
+        <div className="bg-white h-fit pb-10 sm:pb-0 md:h-full flex flex-col md:flex-row items-start pt-10 justify-center gap-2 lg:gap-4 px-2 md:px-4">
             <div>
                 <div className=" text-4xl font-bold flex items-center gap-2 justify-center pb-8 underline decoration-red-700">
                     <FaShoppingCart className=" text-red-700 mt-2" />

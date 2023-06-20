@@ -3,6 +3,7 @@ import ProductCard from "./ProductCard";
 import { BsFillBasket2Fill } from "react-icons/bs";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { ImSpinner10 } from "react-icons/im";
+import loader from "../assets/images/loader/animation_500_lj41ivn8.gif";
 
 const ProductByCategory = ({ category, status, products, id }) => {
     const categoryWiseProduct = products.filter(
@@ -31,8 +32,8 @@ const ProductByCategory = ({ category, status, products, id }) => {
             </h4>
             <div className="flex overflow-y-hidden overflow-x-scroll scrollbar-none gap-4 p-4 pt-0">
                 {status === "loading" ? (
-                    <h1 className="flex items-center justify-center m-auto h-full font-bold text-5xl animate-spin">
-                        <ImSpinner10 />
+                    <h1 className="flex items-center justify-center m-auto h-full font-bold text-5xl ">
+                        <img src={loader} alt="loader" />
                     </h1>
                 ) : (
                     <div
@@ -53,33 +54,42 @@ const ProductByCategory = ({ category, status, products, id }) => {
                         >
                             <MdNavigateBefore className=" text-red-700" />
                         </button>
-                        {id === undefined || id === null
-                            ? categoryWiseProduct?.map((product, index) => {
-                                  return (
-                                      <ProductCard
-                                          key={product._id}
-                                          id={product._id}
-                                          name={product.name}
-                                          image={product.image}
-                                          price={product.price}
-                                          discription={product.discription}
-                                          category={product.category}
-                                      />
-                                  );
-                              })
-                            : prods?.map((product, index) => {
-                                  return (
-                                      <ProductCard
-                                          key={product._id}
-                                          id={product._id}
-                                          name={product.name}
-                                          image={product.image}
-                                          price={product.price}
-                                          discription={product.discription}
-                                          category={product.category}
-                                      />
-                                  );
-                              })}
+                        {id === undefined || id === null ? (
+                            categoryWiseProduct?.map((product, index) => {
+                                return (
+                                    <ProductCard
+                                        key={product._id}
+                                        id={product._id}
+                                        name={product.name}
+                                        image={product.image}
+                                        price={product.price}
+                                        discription={product.discription}
+                                        category={product.category}
+                                    />
+                                );
+                            })
+                        ) : prods?.length <= 0 ? (
+                            <div className=" h-[300px] w-screen px-6 sm:px-20 lg:px-0 flex items-center justify-center ">
+                                <h1 className=" text-2xl font-bold text-red-800 text-center">
+                                    Only One Item is Present in this
+                                    category...that you are seeing Above!
+                                </h1>
+                            </div>
+                        ) : (
+                            prods?.map((product, index) => {
+                                return (
+                                    <ProductCard
+                                        key={product._id}
+                                        id={product._id}
+                                        name={product.name}
+                                        image={product.image}
+                                        price={product.price}
+                                        discription={product.discription}
+                                        category={product.category}
+                                    />
+                                );
+                            })
+                        )}
                     </div>
                 )}
             </div>

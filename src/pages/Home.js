@@ -10,6 +10,7 @@ import { ImSpoonKnife } from "react-icons/im";
 import { BsFillBasket2Fill } from "react-icons/bs";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { Link } from "react-scroll";
+import loader from "../assets/images/loader/animation_500_lj41ivn8.gif";
 
 function Home() {
     const dispatch = useDispatch();
@@ -134,8 +135,9 @@ function Home() {
                 {/*----------------------------------------- top products -------------------------------------- */}
                 {status === "loading" ? (
                     <div className="hidden md:flex items-center justify-center lg:w-1/2 h-[700px]">
-                        <h1 className=" flex items-center justify-center h-full font-bold text-5xl animate-spin">
-                            <ImSpinner10 className=" text-black" />
+                        <h1 className=" flex items-center justify-center h-full font-bold text-5xl ">
+                            {/* <ImSpinner10 className=" text-black" /> */}
+                            <img src={loader} alt="loader" />
                         </h1>
                     </div>
                 ) : (
@@ -174,8 +176,9 @@ function Home() {
 
             {/*-------------------------------------- filters --------------------------------- */}
             {status === "loading" ? (
-                <h1 className="flex items-center justify-center h-full font-bold text-5xl animate-spin">
-                    <ImSpinner10 className=" text-black" />
+                <h1 className="flex items-center justify-center h-full font-bold text-5xl">
+                    {/* <ImSpinner10 className=" text-black" /> */}
+                    <img src={loader} alt="loader" />
                 </h1>
             ) : (
                 <>
@@ -277,8 +280,9 @@ function Home() {
                 Products
             </h4>
             {status === "loading" ? (
-                <h1 className="flex items-center justify-center h-full font-bold text-5xl animate-spin">
-                    <ImSpinner10 className=" text-black" />
+                <h1 className="flex items-center justify-center h-full font-bold text-5xl ">
+                    {/* <ImSpinner10 className=" text-black" /> */}
+                    <img src={loader} alt="loader" />
                 </h1>
             ) : (
                 <div

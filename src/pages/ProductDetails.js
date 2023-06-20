@@ -54,23 +54,43 @@ function ProductDetails() {
                 <h1>Loading...</h1>
             ) : (
                 <div>
-                    <div className="flex">
-                        <img src={product?.image} alt="" />
-                        <div>
-                            <h1>{product?.name}</h1>
-                            <h4>₹{product?.price}</h4>
-                            <p>{product?.category}</p>
-                            <p>{product?.discription}</p>
-                            <div className="flex">
+                    <div className="flex flex-col lg:flex-row items-center justify-center pt-10 lg:py-10 lg:gap-10 ">
+                        <img
+                            src={product?.image}
+                            alt="Product"
+                            className=" w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] object-cover border shadow-sm sm:shadow-none sm:border-none "
+                        />
+                        <div className=" pt-10 pb-10 px-8 lg:px-0 lg:pb-0 lg:pt-20">
+                            <h1 className=" px-4 text-4xl sm:text-6xl  pb-4">
+                                {product?.name}
+                            </h1>
+                            <h4 className="px-4 text-2xl sm:text-4xl pb-4">
+                                <span className="text-red-700 font-bold pr-1">
+                                    ₹
+                                </span>
+                                <span className=" text-blue-600">
+                                    {product?.price}
+                                </span>
+                            </h4>
+                            <p className="px-4 text-xl sm:text-3xl pb-4">
+                                <span className=" text-2xl sm:text-4xl">
+                                    Category:
+                                </span>{" "}
+                                {product?.category}
+                            </p>
+                            <p className="px-4 text-base sm:text-xl pb-4 lg:w-[500px] ">
+                                {product?.discription}
+                            </p>
+                            <div className="flex items-center justify-start px-4 gap-4 py-2 sm:py-4 w-fit text-sm sm:text-base">
                                 <button
-                                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
+                                    className="bg-black text-white py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-md font-bold  
                                 shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
                                     onClick={handleBuy}
                                 >
-                                    Buy
+                                    Buy Now
                                 </button>
                                 <button
-                                    className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
+                                    className="bg-black text-white py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-md font-bold 
                                  shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
                                     onClick={handleAddToCart}
                                 >
@@ -78,7 +98,7 @@ function ProductDetails() {
                                 </button>
                                 {email === process.env.REACT_APP_ADMIN && (
                                     <button
-                                        className="bg-black text-white py-2 px-4 rounded-md font-bold flex items-center justify-center m-auto 
+                                        className="bg-black text-white py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-md font-bold  
                                  shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none"
                                         onClick={handleProdDelete}
                                     >
@@ -88,9 +108,10 @@ function ProductDetails() {
                             </div>
                         </div>
                     </div>
-                    <h1 className="font-bold text-4xl">
-                        Similar Category Products
-                    </h1>
+                    <div className=" w-1/2 border-b-2 flex items-center justify-center m-auto mb-10"></div>
+                    <div className=" flex items-center justify-center m-auto underline decoration-red-700 mb-10">
+                        <h1 className="font-bold text-4xl">Similar Products</h1>
+                    </div>
                     <ProductByCategory
                         category={product?.category}
                         id={product?._id}

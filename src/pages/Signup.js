@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import loginGifAnimation from "../assets/images/logo/loginLogo.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { ImageToBase64 } from "../utilities/ImageToBase64.js";
@@ -17,6 +17,10 @@ function Signup() {
     });
     const [checkRequiredField, setCheckReqField] = useState(false);
     const [passwordMatch, setPassswordMatch] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     // console.log(process.env.REACT_APP_SERVER_DOMAIN);
 

@@ -44,7 +44,15 @@ function Header() {
             {/*---------------------------------- div that wraps all ------------------------------------- */}
             <div className="flex items-center justify-between">
                 {/*------------------------------------- FreshKart Logo and Link ------------------------------ */}
-                <Link to={""}>
+                <Link
+                    to={""}
+                    onClick={() =>
+                        window.scrollTo({
+                            top: "0",
+                            behavior: "smooth",
+                        })
+                    }
+                >
                     <div className="flex items-center justify-center md:flex-none md:w-fit">
                         <img src={logo} alt="logo" className="h-[70px]" />
                     </div>
@@ -81,12 +89,24 @@ function Header() {
                             <Link
                                 to={""}
                                 className="hover:text-red-700 transition-all"
+                                onClick={() =>
+                                    window.scrollTo({
+                                        top: "0",
+                                        behavior: "smooth",
+                                    })
+                                }
                             >
                                 Home
                             </Link>
                             <Link
                                 to={"about"}
                                 className="hover:text-red-700 transition-all"
+                                onClick={() =>
+                                    window.scrollTo({
+                                        top: "0",
+                                        behavior: "smooth",
+                                    })
+                                }
                             >
                                 About
                             </Link>
@@ -122,12 +142,24 @@ function Header() {
                         <Link
                             to={""}
                             className="hover:text-red-700 transition-all"
+                            onClick={() =>
+                                window.scrollTo({
+                                    top: "0",
+                                    behavior: "smooth",
+                                })
+                            }
                         >
                             Home
                         </Link>
                         <Link
                             to={"about"}
                             className="hover:text-red-700 transition-all"
+                            onClick={() =>
+                                window.scrollTo({
+                                    top: "0",
+                                    behavior: "smooth",
+                                })
+                            }
                         >
                             About
                         </Link>
@@ -146,7 +178,15 @@ function Header() {
 
                     {/* -------------------------------- Cart button icon----------------------------------------  */}
                     <div className="text-white  hover:text-red-700 text-2xl lg:text-4xl transition-all">
-                        <Link to={"cart"}>
+                        <Link
+                            to={"cart"}
+                            onClick={() =>
+                                window.scrollTo({
+                                    top: "0",
+                                    behavior: "smooth",
+                                })
+                            }
+                        >
                             <FaShoppingCart />
                             <div
                                 className={`${

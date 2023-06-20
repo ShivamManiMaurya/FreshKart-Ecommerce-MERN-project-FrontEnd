@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/images/logo/logo.png";
 import delivery from "../assets/images/logo/delivery-service.webp";
 import innovation from "../assets/images/logo/innovation.webp";
