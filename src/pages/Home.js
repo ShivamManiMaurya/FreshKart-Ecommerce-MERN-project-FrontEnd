@@ -83,12 +83,15 @@ function Home() {
     return (
         <div className=" w-full">
             {/*-------------------------- top screen Home page heading and top products div -------------------- */}
-            <div className=" lg:flex  w-full items-start justify-left gap-4 h-[calc(100vh-4.375rem)] bg-white">
+            <div
+                className=" lg:flex  w-full items-start justify-left gap-4 h-[calc(100vh-4.375rem)] bg-white
+                        "
+            >
                 {/*-------------------------------------- Home page Heading --------------------------------------- */}
                 <div className=" h-full lg:w-1/2 bg-black text-red-700 flex items-center justify-center  ">
                     <div
-                        className="w-auto border-[6px]
-                         border-red-700 p-4 mx-10 xl:mx-20"
+                        className="w-auto 
+                            p-4 mx-10 xl:mx-20"
                     >
                         <div className="">
                             <h1 className="text-6xl md:text-7xl font-bold mb-4 ">

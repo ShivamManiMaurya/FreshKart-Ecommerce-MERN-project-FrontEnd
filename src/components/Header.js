@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/images/logo/logo.png";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
@@ -16,6 +16,7 @@ function Header() {
     const [showToggleAfterRefresh, setShowToggleAfterRefresh] = useState(false);
     const [cartValue, setCartValue] = useState(0);
     const [showMenu, setShowMenu] = useState(false);
+    const [showShadow, setShowShadow] = useState(false);
 
     const { image: profileImage, email } = useSelector((state) => state.user);
     const { data, cartData } = useSelector((state) => state.product);
@@ -23,6 +24,20 @@ function Header() {
     const quantity = cartData.reduce((acc, crr) => {
         return acc + parseInt(crr.qty);
     }, 0);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 700) {
+                setShowShadow(false);
+            } else {
+                setShowShadow(true);
+            }
+        });
+
+        return () => {
+            window.removeEventListener("scroll", null);
+        };
+    }, []);
 
     const handleUserClick = () => {
         setShowAfterRefresh(true);
@@ -40,7 +55,11 @@ function Header() {
     };
 
     return (
-        <header className=" fixed shadow-md shadow-zinc-900 w-screen h-[70px] bg-black px-4 lg:px-16 z-50">
+        <header
+            className={`${
+                showShadow && "shadow-md shadow-red-800"
+            } fixed  w-screen h-[70px] bg-black px-4 lg:px-16 z-50`}
+        >
             {/*---------------------------------- div that wraps all ------------------------------------- */}
             <div className="flex items-center justify-between">
                 {/*------------------------------------- FreshKart Logo and Link ------------------------------ */}
