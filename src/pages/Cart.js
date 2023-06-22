@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     decreaseItem,
@@ -12,12 +12,15 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import empty from "../assets/images/loader/empty animation.gif";
+import { ImSpinner10 } from "react-icons/im";
 
 function Cart() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { cartData } = useSelector((state) => state.product);
     const { email } = useSelector((state) => state.user);
+    const [spinner, setSpinner] = useState(false);
+    const url = "https://freshkart-ecommerce-mern-project-backend.onrender.com";
 
     const subtotal = cartData.reduce((acc, crr) => {
         return acc + parseFloat(crr.total);
@@ -60,19 +63,19 @@ function Cart() {
             // toast("Redirect to payment gatway.");
             // stripePromise.redirectToCheckout({ sessionId: dataRes });
             // *********************************************************************************************
+
+            setSpinner(true);
+
             const stripePromise = await loadStripe(
                 process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
             );
-            const res = await fetch(
-                `${process.env.REACT_APP_SERVER_DOMAIN}/create-checkout-session`,
-                {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json",
-                    },
-                    body: JSON.stringify(cartData),
-                }
-            );
+            const res = await fetch(`${url}/create-checkout-session`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(cartData),
+            });
             if (res.statusCode === 500) return;
 
             const data = await res.json();
@@ -227,7 +230,11 @@ function Cart() {
                                     shadow-md shadow-zinc-500 hover:text-red-700 active:shadow-none mb-10"
                     onClick={handlePayment}
                 >
-                    PLACE ORDER
+                    {spinner ? (
+                        <ImSpinner10 className=" animate-spin text-2xl flex items-center justify-center m-auto" />
+                    ) : (
+                        <p>PLACE ORDER</p>
+                    )}
                 </button>
             </div>
         </div>

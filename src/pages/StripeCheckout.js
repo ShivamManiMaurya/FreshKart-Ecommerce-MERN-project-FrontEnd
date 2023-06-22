@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+const backendUrl = process.env.REACT_APP_SERVER_DOMAIN;
 
 export default function StripeCheckout() {
     const [clientSecret, setClientSecret] = useState("");
@@ -20,7 +21,7 @@ export default function StripeCheckout() {
         console.log("f-first");
         try {
             console.log("f-second");
-            fetch("http://localhost:8080/create-payment-intent", {
+            fetch(`${backendUrl}/create-payment-intent`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),

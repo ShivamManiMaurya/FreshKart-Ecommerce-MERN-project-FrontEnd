@@ -56,7 +56,7 @@ Users should be able to:
 -   [MongoDB](https://cloud.mongodb.com/) - For database
 -   NodeJs - For backend
 -   ExpressJs - For backend
--   redux
+-   [Redux-Toolkit](https://redux-toolkit.js.org/) - For managing the state
 
 ### What I learned
 

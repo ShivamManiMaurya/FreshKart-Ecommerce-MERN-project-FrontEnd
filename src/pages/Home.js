@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProduct } from "../redux/productSlice";
 import ProductCard from "../components/ProductCard";
 import ProductByCategory from "../components/ProductByCategory";
-import { ImSpinner10 } from "react-icons/im";
+// import { ImSpinner10 } from "react-icons/im";
 import { FaFilter } from "react-icons/fa";
 import { MdDoubleArrow } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
