@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import ProductCard from "./ProductCard";
 import { BsFillBasket2Fill } from "react-icons/bs";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { ImSpinner10 } from "react-icons/im";
 import loader from "../assets/images/loader/animation_500_lj41ivn8.gif";
 
 const ProductByCategory = ({ category, status, products, id }) => {

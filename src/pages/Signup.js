@@ -22,8 +22,6 @@ function Signup() {
         window.scrollTo(0, 0);
     }, []);
 
-    // console.log(process.env.REACT_APP_SERVER_DOMAIN);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { firstName, email, password, confirmPassword } = data;
@@ -36,22 +34,16 @@ function Signup() {
                 // );
 
                 const dataRes = await postSignupData(data);
-                console.log(dataRes);
-
-                // console.log(data.image);
-                // alert(dataRes.data.message);
                 toast(dataRes.data.message);
                 if (dataRes.data.alert) {
                     navigate("/login");
                 }
-                // navigate("/login");
             } else {
                 setPassswordMatch(true);
             }
         } else {
             setCheckReqField(true);
             setPassswordMatch(false);
-            // alert("Check Required * fields first");
         }
     };
 
@@ -160,7 +152,6 @@ function Signup() {
                         name="image"
                         className="w-full h-10 rounded-sm px-1 mb-2 mt-0.5"
                         accept="image/*"
-                        // value={data.image}
                         onChange={handleFileInput}
                     />
                     {checkRequiredField && (

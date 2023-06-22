@@ -30,7 +30,6 @@ function NewProduct() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(prodData);
         const { name, category, image, price, discription } = prodData;
         if (name && category && image && price && discription) {
             const dataRes = await postProductData(prodData);
@@ -38,13 +37,11 @@ function NewProduct() {
             toast("Product added successfully.");
             setProdData(initialProdData);
         } else {
-            // console.log("please enter the required values");
             toast("Please enter the required values first...!");
         }
     };
 
     const handleProdInput = (e) => {
-        // if (e.target.value === "Select Category") return;
         const { name, value } = e.target;
         setProdData((prev) => {
             return {
@@ -56,7 +53,6 @@ function NewProduct() {
 
     const handleImageInput = async (e) => {
         const prodImageFile = await ImageToBase64(e.target.files[0]);
-        // console.log(prodImageFile);
         setProdData((prev) => {
             return {
                 ...prev,
@@ -64,10 +60,6 @@ function NewProduct() {
             };
         });
     };
-
-    // useEffect(() => {
-    //     console.log(prodData);
-    // }, [prodData]);
 
     return (
         <div className="flex h-full justify-center items-center">
@@ -162,9 +154,7 @@ function NewProduct() {
                         <div>
                             <label htmlFor="image" className="pl-2 font-bold">
                                 Image<span className="text-red-700">*</span>
-                                {/* <label htmlFor="uploadImage"> */}
                                 <div
-                                    // id="image"
                                     className="bg-zinc-200 w-full h-20 text-5xl flex justify-center items-center 
                                     rounded-md cursor-pointer hover:text-zinc-700 active:text-black
                                      shadow-sm shadow-zinc-500"
@@ -188,7 +178,6 @@ function NewProduct() {
                                     />
                                 </div>{" "}
                             </label>
-                            {/* </label> */}
                         </div>
                         <label htmlFor="price" className="pl-2 font-bold">
                             Price<span className="text-red-700">*</span>

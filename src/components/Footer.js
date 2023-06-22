@@ -2,7 +2,6 @@ import React from "react";
 import logo from "../assets/images/logo/logo.png";
 import {
     BsFillTelephoneFill,
-    BsMailbox2,
     BsTwitter,
     BsFacebook,
     BsLinkedin,
@@ -15,7 +14,6 @@ import {
     AiOutlineGooglePlus,
 } from "react-icons/ai";
 import { ImLocation } from "react-icons/im";
-// import { BiLogoGooglePlus } from "react-icons/bi";
 
 const Footer = () => {
     return (

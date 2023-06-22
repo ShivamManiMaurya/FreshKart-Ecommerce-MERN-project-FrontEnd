@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Menu from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
@@ -13,10 +12,8 @@ import NewProduct from "./pages/NewProduct";
 import Signup from "./pages/Signup";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-// import StripeCheckout from "./pages/StripeCheckout";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
-import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
     {
@@ -26,10 +23,6 @@ const router = createBrowserRouter([
             {
                 index: "/",
                 element: <Home />,
-            },
-            {
-                // path: "footer",
-                // element: <Footer />,
             },
             {
                 path: "about",
@@ -43,10 +36,6 @@ const router = createBrowserRouter([
                 path: "cart",
                 element: <Cart />,
             },
-            // {
-            //     path: "/stripe-checkout/",
-            //     element: <StripeCheckout />,
-            // },
             {
                 path: "login",
                 element: <Login />,

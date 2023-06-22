@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProduct } from "../redux/productSlice";
 import ProductCard from "../components/ProductCard";
 import ProductByCategory from "../components/ProductByCategory";
-// import { ImSpinner10 } from "react-icons/im";
 import { FaFilter } from "react-icons/fa";
 import { MdDoubleArrow } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
@@ -16,8 +15,6 @@ function Home() {
     const dispatch = useDispatch();
     const { data: products, status } = useSelector((state) => state.product);
     const topProducts = products.slice(1, 5);
-
-    // console.log(typeof status);
 
     const [fitlteredProd, setFilteredProd] = useState(products);
 
@@ -38,8 +35,6 @@ function Home() {
     //     (filters, category) => ({ ...filters, [category]: category }),
     //     {}
     // );
-    // console.log("All Categories = ", categories.Vegitables);
-    // console.log(typeof categories?.Vegitables?.toString());
     //.......................................
 
     const [active, setActive] = useState("");
@@ -289,7 +284,6 @@ function Home() {
             </h4>
             {status === "loading" ? (
                 <h1 className="flex items-center justify-center h-full font-bold text-5xl ">
-                    {/* <ImSpinner10 className=" text-black" /> */}
                     <img src={loader} alt="loader" />
                 </h1>
             ) : (

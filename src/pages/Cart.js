@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     decreaseItem,
@@ -9,7 +9,7 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import { AiFillMinusSquare } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import empty from "../assets/images/loader/empty animation.gif";
 import { ImSpinner10 } from "react-icons/im";
@@ -31,7 +31,6 @@ function Cart() {
     }, 0);
 
     const handleRemove = (id) => {
-        // console.log(id);
         dispatch(removeFromCart(id));
     };
 
@@ -47,7 +46,6 @@ function Cart() {
         dispatch(decreaseItem(id));
     };
 
-    // console.log(cartData);
     const handlePayment = async () => {
         if (email) {
             // const stripePromise = await loadStripe(
@@ -59,7 +57,6 @@ function Cart() {
             // );
             // if (postPaymentData.statusCode === 500) return;
             // const dataRes = postPaymentData;
-            // console.log(dataRes);
             // toast("Redirect to payment gatway.");
             // stripePromise.redirectToCheckout({ sessionId: dataRes });
             // *********************************************************************************************
@@ -79,7 +76,6 @@ function Cart() {
             if (res.statusCode === 500) return;
 
             const data = await res.json();
-            // console.log(data);
 
             toast("Redirect to payment Gateway...!");
             stripePromise.redirectToCheckout({ sessionId: data });
@@ -119,16 +115,16 @@ function Cart() {
                     return (
                         <div
                             key={product?.id}
-                            className="flex border-b-2 py-2 "
+                            className="w-[calc(100vw-14px)] sm:w-auto flex border-b-2 py-2 "
                         >
-                            <div className="w-[150px] h-[110px] flex items-center justify-center">
+                            <div className="w-[140px] h-[110px] sm:w-[150px] flex items-center justify-center">
                                 <img
                                     src={product?.image}
                                     alt="Product"
                                     className=" w-full h-full object-cover"
                                 />
                             </div>
-                            <div className="  px-4 w-[320px] sm:w-[350px] lg:w-full">
+                            <div className="  px-4 w-screen sm:w-[350px] lg:w-full">
                                 <div className=" flex justify-between items-center ">
                                     <h4 className=" text-lg font-bold">
                                         {product?.name}
@@ -206,7 +202,7 @@ function Cart() {
                     <span className="text-blue-700">{subtotal.toFixed(2)}</span>{" "}
                 </div>
             </div>
-            <div className="w-[460px] md:w-[300px] pt-4 md:mt-[76px] flex flex-col justify-center">
+            <div className=" w-[calc(100vw-14px)]  sm:w-[300px] pt-4 md:mt-[76px] flex flex-col justify-center">
                 <h4 className=" text-xl font-bold text-zinc-500 border-b-2 pb-2 px-2">
                     PRICE DETAILS
                 </h4>

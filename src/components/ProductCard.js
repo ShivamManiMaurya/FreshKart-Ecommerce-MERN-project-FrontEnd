@@ -5,7 +5,6 @@ import { addToCart } from "../redux/productSlice";
 
 const ProductCard = ({ id, image, name, price, category }) => {
     const dispatch = useDispatch();
-    // const [cartProducts, setCartProducts] = useState([]);
 
     const handleAddToCart = () => {
         const cartProduct = {

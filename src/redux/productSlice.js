@@ -82,6 +82,5 @@ export default productSlice.reducer;
 
 export const fetchProduct = createAsyncThunk("product", async () => {
     const data = await getProductData();
-    // console.log("thunk = ", data.data);
     return data.data;
 });

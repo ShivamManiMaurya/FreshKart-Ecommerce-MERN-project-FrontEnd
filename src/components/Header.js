@@ -14,12 +14,11 @@ function Header() {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showAfterRefresh, setShowAfterRefresh] = useState(false);
     const [showToggleAfterRefresh, setShowToggleAfterRefresh] = useState(false);
-    const [cartValue, setCartValue] = useState(0);
     const [showMenu, setShowMenu] = useState(false);
     const [showShadow, setShowShadow] = useState(false);
 
     const { image: profileImage, email } = useSelector((state) => state.user);
-    const { data, cartData } = useSelector((state) => state.product);
+    const { cartData } = useSelector((state) => state.product);
 
     const quantity = cartData.reduce((acc, crr) => {
         return acc + parseInt(crr.qty);
